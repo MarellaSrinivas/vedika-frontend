@@ -1,0 +1,331 @@
+/* Home.css — TheVedika blue and navy theme */
+
+.vd-page {
+  min-height: 100vh;
+  overflow-x: clip;
+  background: #f8f7f3;
+  color: #172b3a;
+}
+
+.vd-home-main {
+  width: min(1320px, calc(100% - 48px));
+  margin: 0 auto;
+  padding: 32px 0 48px;
+}
+
+/* Featured Properties */
+
+.vd-deals-section {
+  margin-top: 25px;
+  scroll-margin-top: 100px;
+}
+
+.vd-section-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.vd-section-title-wrap {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.vd-section-title-wrap h2 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+  color: #10243a;
+  font-family: "Playfair Display", Georgia, "Times New Roman", serif;
+  font-size: clamp(24px, 2.4vw, 32px);
+  font-weight: 600;
+}
+
+.vd-live-dot {
+  width: 9px;
+  height: 9px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: #087bc7;
+  box-shadow: 0 0 0 4px #dceeff;
+}
+
+.vd-limited-badge {
+  padding: 6px 10px;
+  border: 1px solid #c9e3fa;
+  border-radius: 30px;
+  background: #eef6ff;
+  color: #0868ae;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+}
+
+.vd-view-all {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: #0868ae;
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+  transition: color 0.2s ease;
+}
+
+.vd-view-all:hover {
+  color: #075a96;
+}
+
+.vd-view-all span {
+  transition: transform 0.2s ease;
+}
+
+.vd-view-all:hover span {
+  transform: translateX(3px);
+}
+
+/* Farmhouse grid */
+
+.vd-farmhouse-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 20px;
+}
+
+/* Loading, error and empty states */
+
+.vd-state-panel {
+  min-height: 190px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 30px 20px;
+  border: 1px solid #e1e8f0;
+  border-radius: 12px;
+  background: #ffffff;
+  text-align: center;
+}
+
+.vd-state-panel p {
+  margin: 0;
+  color: #647386;
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.vd-primary-button,
+.vd-text-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 11px 17px;
+  border: 1px solid transparent;
+  border-radius: 7px;
+  font-size: 12px;
+  font-weight: 700;
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.vd-primary-button {
+  background: #0868ae;
+  color: #ffffff;
+}
+
+.vd-primary-button:hover {
+  background: #075a96;
+  transform: translateY(-1px);
+}
+
+.vd-text-button {
+  border-color: #c9e3fa;
+  background: #eef3ff;
+  color: #0868ae;
+}
+
+.vd-text-button:hover {
+  border-color: #9bcfff;
+  background: #e0edff;
+}
+
+/* Loading spinner */
+
+.vd-spinner {
+  width: 30px;
+  height: 30px;
+  border: 3px solid #dceeff;
+  border-top-color: #087bc7;
+  border-radius: 50%;
+  animation: vd-spin 0.8s linear infinite;
+}
+
+@keyframes vd-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Explore All Farmhouses */
+
+.vd-all-farmhouses-section {
+  margin-top: 56px;
+  padding-top: 34px;
+  border-top: 1px solid #e0e6ed;
+  scroll-margin-top: 100px;
+}
+
+.vd-all-heading {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 24px;
+}
+
+.vd-section-eyebrow {
+  display: block;
+  margin-bottom: 8px;
+  color: #0868ae;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.8px;
+}
+
+.vd-all-title {
+  margin: 0;
+  color: #10243a;
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: clamp(26px, 3vw, 36px);
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+.vd-all-description {
+  margin: 9px 0 0;
+  color: #647386;
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.vd-farmhouse-count {
+  flex-shrink: 0;
+  padding: 8px 13px;
+  border: 1px solid #c9e3fa;
+  border-radius: 30px;
+  background: #eef3ff;
+  color: #0868ae;
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.vd-all-farmhouses-section .vd-farmhouse-grid {
+  margin-top: 20px;
+}
+
+/* Responsive layouts */
+
+@media (max-width: 1100px) {
+  .vd-farmhouse-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 800px) {
+  .vd-home-main {
+    width: calc(100% - 32px);
+    padding-top: 22px;
+  }
+
+  .vd-farmhouse-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+  }
+
+  .vd-all-heading {
+    align-items: flex-start;
+  }
+}
+
+@media (max-width: 600px) {
+  .vd-home-main {
+    width: calc(100% - 24px);
+    padding-top: 16px;
+    padding-bottom: 32px;
+  }
+
+  .vd-section-heading {
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .vd-section-title-wrap {
+    gap: 9px;
+  }
+
+  .vd-section-title-wrap h2 {
+    font-size: 23px;
+  }
+
+  .vd-limited-badge {
+    font-size: 9px;
+  }
+
+  .vd-view-all {
+    padding-top: 5px;
+    font-size: 10px;
+  }
+
+  .vd-farmhouse-grid {
+    gap: 10px;
+  }
+
+  .vd-all-farmhouses-section {
+    margin-top: 38px;
+    padding-top: 26px;
+  }
+
+  .vd-all-heading {
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .vd-all-title {
+    font-size: 25px;
+  }
+
+  .vd-all-description {
+    max-width: 260px;
+    font-size: 12px;
+  }
+
+  .vd-farmhouse-count {
+    padding: 7px 9px;
+    font-size: 10px;
+  }
+}
+
+/* Accessibility */
+
+@media (prefers-reduced-motion: reduce) {
+  .vd-spinner {
+    animation: none;
+  }
+
+  .vd-view-all,
+  .vd-view-all span,
+  .vd-primary-button,
+  .vd-text-button {
+    transition: none;
+  }
+}

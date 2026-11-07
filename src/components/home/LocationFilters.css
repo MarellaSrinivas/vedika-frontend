@@ -1,0 +1,215 @@
+
+/* LocationFilters.css */
+
+.vd-location-bar {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  margin-top: 26px;
+  padding-bottom: 17px;
+  border-bottom: 1px solid #e6e8e1;
+  scroll-margin-top: 100px;
+}
+
+.vd-location-chips {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.vd-location-chip {
+  min-height: 35px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 0 12px;
+  border: 1px solid #e2e7df;
+  border-radius: 25px;
+  background: #fff;
+  color: #536055;
+  font-size: 11px;
+  font-weight: 600;
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.vd-location-chip:hover {
+  border-color: #1f3a2a;
+  background: #f5f7f2;
+  color: #1f3a2a;
+}
+
+.vd-location-chip.selected {
+  border-color: #1f3a2a;
+  background: #1f3a2a;
+  color: #fff;
+}
+
+.vd-chip-count {
+  font-size: 10px;
+  font-weight: 500;
+  opacity: 0.75;
+}
+
+.vd-filter-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.vd-filter-button {
+  min-height: 35px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  padding: 0 12px;
+  border: 1px solid #e2e7df;
+  border-radius: 7px;
+  background: #fff;
+  color: #435247;
+  font-size: 11px;
+  font-weight: 600;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.vd-filter-button:hover {
+  border-color: #1f3a2a;
+  color: #1f3a2a;
+}
+
+.vd-sort-control {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: #7b8378;
+  font-size: 11px;
+  white-space: nowrap;
+}
+
+.vd-sort-control select {
+  max-width: 145px;
+  padding: 8px 5px;
+  outline: none;
+  border: 0;
+  background: transparent;
+  color: #26392b;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.vd-view-button {
+  width: 35px;
+  height: 35px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border: 1px solid #e2e7df;
+  border-radius: 7px;
+  background: #fff;
+  color: #627064;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.vd-view-button:hover,
+.vd-view-button.active {
+  border-color: #cbd8c8;
+  background: #edf3e9;
+  color: #1f3a2a;
+}
+
+@media (max-width: 1100px) {
+  .vd-location-bar {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .vd-location-chips {
+    width: 100%;
+  }
+
+  .vd-filter-actions {
+    width: 100%;
+    justify-content: flex-start;
+  }
+}
+
+@media (max-width: 600px) {
+  .vd-location-bar {
+    gap: 13px;
+    margin-top: 20px;
+    padding-bottom: 13px;
+  }
+
+  .vd-location-chips {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding-bottom: 5px;
+    scrollbar-width: none;
+  }
+
+  .vd-location-chips::-webkit-scrollbar {
+    display: none;
+  }
+
+  .vd-location-chip {
+    min-height: 33px;
+    padding: 0 10px;
+    font-size: 10px;
+  }
+
+  .vd-filter-actions {
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+
+  .vd-filter-button {
+    padding: 0 9px;
+  }
+
+  .vd-sort-control {
+    margin-left: auto;
+  }
+
+  .vd-sort-control select {
+    max-width: 125px;
+    font-size: 10px;
+  }
+
+  .vd-view-button {
+    width: 33px;
+    height: 33px;
+  }
+}
+
+@media (max-width: 360px) {
+  .vd-filter-actions {
+    gap: 4px;
+  }
+
+  .vd-sort-control {
+    gap: 2px;
+  }
+
+  .vd-sort-control select {
+    max-width: 105px;
+  }
+}

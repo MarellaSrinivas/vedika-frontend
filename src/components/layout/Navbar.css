@@ -1,0 +1,639 @@
+/* ==============================
+   THE VEDIKA - HEADER
+================================ */
+
+.vd-header {
+  position: relative;
+  z-index: 1000;
+  width: 100%;
+  background: #ffffff;
+  font-family: inherit;
+}
+
+.vd-header,
+.vd-header * {
+  box-sizing: border-box;
+}
+
+.vd-header a {
+  text-decoration: none;
+}
+
+/* ==============================
+   TOP PROMOTIONAL BAR
+================================ */
+
+.vd-promo {
+  min-height: 30px;
+  padding: 0 16px;
+  background: #0868ae;
+  color: #ffffff;
+  border: 1px solid #69a8e7;
+  border-bottom: 2px solid #ffffff;
+  border-radius: 0 0 15px 15px;
+  overflow: hidden;
+}
+
+.vd-promo-inner {
+  width: 100%;
+  min-height: 28px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 2.2fr 1fr;
+  align-items: center;
+  gap: 16px;
+}
+
+.vd-promo-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  justify-self: start;
+  white-space: nowrap;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.1px;
+}
+
+.vd-promo-message {
+  margin: 0;
+  text-align: center;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.3;
+  white-space: nowrap;
+}
+
+.vd-promo-phone {
+  display: inline-flex;
+  align-items: center;
+  justify-self: end;
+  gap: 6px;
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+/* ==============================
+   MAIN NAVBAR
+================================ */
+
+.vd-navbar {
+  width: 100%;
+  min-height: 88px;
+  padding: 12px 3.1%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  background: #ffffff;
+  border-bottom: 1px solid #f0f2f6;
+}
+
+/* Brand */
+
+
+
+/* Location selector */
+
+.vd-location-button {
+  min-width: 205px;
+  height: 37px;
+  padding: 0 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  flex-shrink: 0;
+  border: 1px solid transparent;
+  border-radius: 24px;
+  background: #eef3ff;
+  color: #293b50;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.vd-location-button > svg:first-child {
+  color: #0878c9;
+  flex-shrink: 0;
+}
+
+.vd-location-button > svg:last-child {
+  color: #34465a;
+  flex-shrink: 0;
+}
+
+.vd-location-button:hover {
+  background: #e4edff;
+  border-color: #d7e4ff;
+}
+
+/* Navigation pill container */
+
+.vd-nav-links {
+  min-height: 61px;
+  padding: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  flex-shrink: 0;
+  border-radius: 36px;
+  background: #f0f3ff;
+}
+
+.vd-nav-link {
+  min-height: 48px;
+  padding: 0 17px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1px;
+  border-radius: 28px;
+  color: #4a5260;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1.25;
+  text-align: center;
+  white-space: nowrap;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.vd-nav-link:hover {
+  color: #0879c8;
+}
+
+.vd-nav-link.active {
+  background: #087bc7;
+  color: #ffffff;
+  box-shadow: 0 2px 5px rgb(0 104 180 / 12%);
+}
+
+.vd-nav-link.active:hover {
+  background: #0671b9;
+  color: #ffffff;
+}
+
+/* Search */
+
+.vd-search {
+  width: clamp(170px, 19vw, 265px);
+  height: 37px;
+  padding: 0 12px;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  flex-shrink: 1;
+  border: 1px solid transparent;
+  border-radius: 25px;
+  background: #f0f3ff;
+  color: #526071;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.vd-search:focus-within {
+  background: #f7f8ff;
+  border-color: #b6d8fa;
+}
+
+.vd-search > svg {
+  flex-shrink: 0;
+}
+
+.vd-search input {
+  width: 100%;
+  min-width: 0;
+  padding: 0;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: #27384b;
+  font-family: inherit;
+  font-size: 12px;
+}
+
+.vd-search input::placeholder {
+  color: #657184;
+  opacity: 1;
+}
+
+.vd-search-shortcut {
+  padding: 2px 4px;
+  flex-shrink: 0;
+  border-radius: 4px;
+  color: #647184;
+  font-size: 11px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* WhatsApp */
+
+.vd-whatsapp {
+  min-height: 31px;
+  padding: 0 13px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  flex-shrink: 0;
+  border-radius: 22px;
+  background: #1fc765;
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.vd-whatsapp:hover {
+  background: #16b858;
+  color: #ffffff;
+  transform: translateY(-1px);
+}
+
+/* Wishlist */
+
+.vd-icon-button {
+  position: relative;
+  width: 34px;
+  height: 36px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: #27384b;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.vd-icon-button::before {
+  position: absolute;
+  top: 1px;
+  right: 2px;
+  width: 7px;
+  height: 7px;
+  border: 1px solid #ffffff;
+  border-radius: 50%;
+  background: #d9a300;
+  content: "";
+}
+
+.vd-icon-button:hover {
+  color: #e34464;
+  transform: scale(1.05);
+}
+
+/* Account */
+
+.vd-account-button {
+  width: 35px;
+  height: 35px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border: none;
+  border-radius: 50%;
+  background: #0868ae;
+  color: #ffffff;
+  box-shadow: 0 1px 3px rgb(0 0 0 / 12%);
+  transition: background 0.2s ease;
+}
+
+.vd-account-button:hover {
+  background: #075a99;
+  color: #ffffff;
+}
+
+/* Mobile menu button */
+
+.vd-mobile-toggle {
+  width: 36px;
+  height: 36px;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border: 1px solid #e1e8f0;
+  border-radius: 50%;
+  background: #ffffff;
+  color: #26384c;
+  cursor: pointer;
+}
+
+/* ==============================
+   MEDIUM DESKTOP / LAPTOP
+================================ */
+
+@media (max-width: 1350px) {
+  .vd-navbar {
+    padding-right: 22px;
+    padding-left: 22px;
+    gap: 12px;
+  }
+
+  .vd-location-button {
+    min-width: 175px;
+    padding: 0 10px;
+    gap: 7px;
+    font-size: 12px;
+  }
+
+  .vd-nav-link {
+    padding-right: 12px;
+    padding-left: 12px;
+    font-size: 14px;
+  }
+
+  .vd-search {
+    width: clamp(145px, 16vw, 220px);
+  }
+
+  .vd-whatsapp {
+    padding: 0 10px;
+  }
+}
+
+/* ==============================
+   TABLET / MOBILE NAVIGATION
+================================ */
+
+@media (max-width: 1050px) {
+  .vd-navbar {
+    min-height: 76px;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 12px 20px;
+  }
+
+  .vd-mobile-toggle {
+    display: inline-flex;
+    margin-left: auto;
+    order: 7;
+  }
+
+  .vd-location-button {
+    min-width: 190px;
+  }
+
+  .vd-nav-links {
+    display: none;
+    width: 100%;
+    min-height: auto;
+    order: 8;
+    align-items: stretch;
+    flex-direction: column;
+    gap: 5px;
+    padding: 10px;
+    border: 1px solid #e7ebf6;
+    border-radius: 18px;
+    background: #f5f7ff;
+  }
+
+  .vd-nav-links.is-open {
+    display: flex;
+  }
+
+  .vd-nav-link {
+    width: 100%;
+    min-height: 44px;
+    align-items: flex-start;
+    padding: 10px 16px;
+    border-radius: 12px;
+    text-align: left;
+  }
+
+  .vd-search {
+    width: 100%;
+    height: 40px;
+    order: 9;
+  }
+
+  .vd-whatsapp {
+    margin-left: auto;
+  }
+}
+
+/* ==============================
+   SMALL MOBILE
+================================ */
+
+@media (max-width: 600px) {
+  .vd-promo {
+    min-height: 30px;
+    padding: 0 8px;
+    border-radius: 0 0 10px 10px;
+  }
+
+  .vd-promo-inner {
+    min-height: 28px;
+    display: flex;
+    justify-content: center;
+  }
+
+  .vd-promo-label {
+    justify-content: center;
+    gap: 6px;
+    font-size: 10px;
+  }
+
+  .vd-promo-message,
+  .vd-promo-phone {
+    display: none;
+  }
+
+  .vd-navbar {
+    min-height: 65px;
+    padding: 10px 12px;
+    gap: 10px;
+  }
+
+
+  
+
+  .vd-location-button {
+    width: 100%;
+    min-width: 0;
+    height: 36px;
+    order: 8;
+  }
+
+  .vd-mobile-toggle {
+    width: 33px;
+    height: 33px;
+    order: 7;
+  }
+
+  .vd-whatsapp {
+    min-height: 32px;
+    width: 34px;
+    padding: 0;
+    gap: 0;
+    margin-left: auto;
+  }
+
+  .vd-whatsapp span {
+    display: none;
+  }
+
+  .vd-whatsapp svg {
+    width: 17px;
+    height: 17px;
+  }
+
+  .vd-icon-button {
+    width: 30px;
+    height: 32px;
+  }
+
+  .vd-icon-button svg {
+    width: 21px;
+    height: 21px;
+  }
+
+  .vd-icon-button::before {
+    top: 0;
+    right: 0;
+  }
+
+  .vd-account-button {
+    width: 32px;
+    height: 32px;
+  }
+
+  .vd-search {
+    order: 9;
+  }
+
+  .vd-nav-links {
+    order: 10;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vd-header *,
+  .vd-header *::before,
+  .vd-header *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+
+/* ==============================
+   BRAND LOGO + TITLE + TAGLINE
+================================ */
+
+.vd-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  flex: 0 0 auto;
+  min-width: 0;
+  color: #10243a;
+  text-decoration: none;
+}
+
+.vd-brand-logo {
+  display: block;
+  width: 42px;
+  height: 42px;
+  flex: 0 0 42px;
+  object-fit: contain;
+}
+
+.vd-brand-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 3px;
+  min-width: 0;
+}
+
+.vd-brand-text strong {
+  color: #10243a;
+  font-family: inherit;
+  font-size: 19px;
+  font-weight: 750;
+  line-height: 1.15;
+  white-space: nowrap;
+}
+
+.vd-brand-text small {
+  color: #5d6878;
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 1.3;
+  white-space: nowrap;
+}
+
+/* Laptop */
+@media (max-width: 1350px) {
+  .vd-brand {
+    gap: 8px;
+  }
+
+  .vd-brand-logo {
+    width: 58px;
+    height: 58px;
+    flex-basis: 58px;
+  }
+
+  .vd-brand-text strong {
+    font-size: 17px;
+  }
+
+  .vd-brand-text small {
+    font-size: 10px;
+  }
+}
+
+/* Tablet */
+@media (max-width: 1050px) {
+  .vd-brand-logo {
+    width: 60px;
+    height: 60px;
+    flex-basis: 40px;
+  }
+
+  .vd-brand-text strong {
+    font-size: 18px;
+  }
+
+  .vd-brand-text small {
+    font-size: 10px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+  .vd-brand {
+    gap: 7px;
+  }
+
+  .vd-brand-logo {
+    width: 34px;
+    height: 34px;
+    flex-basis: 34px;
+  }
+
+  .vd-brand-text {
+    gap: 2px;
+  }
+
+  .vd-brand-text strong {
+    font-size: 16px;
+  }
+
+  .vd-brand-text small {
+    font-size: 9px;
+  }
+}

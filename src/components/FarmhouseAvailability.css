@@ -1,0 +1,112 @@
+.availability-card{padding:25px;background:#fff;border:1px solid var(--border,#e5e6e1);border-radius:16px;box-shadow:0 8px 28px rgba(31,58,42,.05);min-width:0}
+.availability-heading{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:23px}
+.availability-eyebrow{color:#a57a42;font-size:10px;font-weight:700;letter-spacing:1.6px}
+.availability-heading h2{margin:7px 0;color:var(--primary,#1f3a2a);font-family:"Playfair Display",serif;font-size:25px}
+.availability-heading p{color:var(--muted,#70766f);font-size:13px;line-height:1.6}
+.availability-calendar-icon{display:flex;flex-shrink:0;align-items:center;justify-content:center;width:48px;height:48px;color:var(--primary,#1f3a2a);background:#eef3eb;border-radius:12px}
+.availability-legend{display:flex;flex-wrap:wrap;gap:15px;margin-bottom:12px}
+.availability-legend>span{display:inline-flex;align-items:center;gap:6px;color:var(--muted,#70766f);font-size:11px}
+.availability-dot{display:inline-block;width:9px;height:9px;border-radius:50%}.available-dot{background:#4e9363}.booked-dot{background:#c56a62}.selected-dot{background:#1f3a2a}
+.availability-slider-controls{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:12px 0}
+.availability-slider-controls>span{color:var(--muted,#70766f);font-size:11px;text-align:center}
+.availability-slider-controls button{display:grid;place-items:center;flex-shrink:0;width:34px;height:34px;border:1px solid var(--border,#e5e6e1);border-radius:8px;background:#fff;color:var(--primary,#1f3a2a)}
+.availability-slider-controls button:disabled{opacity:.35;cursor:not-allowed}
+.availability-calendar{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.availability-date{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;min-width:0;min-height:94px;padding:8px 3px;color:var(--text,#1e241f);background:#f5f8f3;border:1px solid #dce9dc;border-radius:9px;cursor:pointer;transition:border-color .15s,background .15s,transform .15s}
+.availability-date.is-available:hover{border-color:#548a5e;transform:translateY(-1px)}
+.availability-day-name{color:var(--muted,#70766f);font-size:10px;text-transform:uppercase}
+.availability-date>strong{font-size:17px;line-height:1}
+.availability-date-price{display:flex;align-items:center;justify-content:center;min-height:14px;color:#38734a;font-size:10px;font-weight:700;white-space:nowrap}
+.availability-status{font-size:9px;color:#38734a}
+.availability-date.is-booked{color:#9a9a94;background:#f7f3f2;border-color:#eadbd9;cursor:not-allowed;opacity:.8}
+.availability-date.is-booked .availability-day-name,.availability-date.is-booked .availability-status,.availability-date.is-booked .availability-date-price{color:#a85d57}
+.availability-date.is-date-endpoint{color:#fff;background:var(--primary,#1f3a2a);border-color:var(--primary,#1f3a2a)}
+.availability-date.is-date-endpoint .availability-day-name,.availability-date.is-date-endpoint .availability-date-price,.availability-date.is-date-endpoint .availability-status{color:#fff}
+.availability-notice{display:flex;align-items:flex-start;gap:9px;padding:13px;margin-top:16px;color:#6d644e;background:#faf7ef;border:1px solid #eee5cf;border-radius:9px}
+.availability-notice svg{flex-shrink:0;margin-top:1px}.availability-notice p{font-size:11px;line-height:1.7}
+.availability-selection{padding-top:22px;margin-top:23px;border-top:1px solid var(--border,#e5e6e1)}
+.availability-selection-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:16px}
+.availability-selection-heading h3,.availability-price-breakdown h3{color:var(--text,#1e241f);font-size:15px}
+.availability-selection-heading>span{display:inline-flex;align-items:center;gap:6px;color:var(--primary,#1f3a2a);font-size:12px;font-weight:600}
+.availability-date-summary{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:center;gap:10px;padding:15px 12px;background:#f8f9f6;border:1px solid var(--border,#e5e6e1);border-radius:10px}
+.availability-date-summary>div:not(.availability-date-divider){display:flex;flex-direction:column;gap:7px;min-width:0}
+.availability-date-summary label{color:var(--muted,#70766f);font-size:10px;font-weight:700;letter-spacing:.8px}
+.availability-date-summary strong{color:var(--text,#1e241f);font-size:12px;overflow-wrap:anywhere}
+.availability-date-summary small{color:var(--muted,#70766f);font-size:10px}
+.availability-date-divider{display:flex;align-items:center;color:#9a9f96}
+.availability-guests-label{display:flex;align-items:center;gap:8px;margin:19px 0 9px;color:var(--text,#1e241f);font-size:13px;font-weight:600}
+.availability-guests-select{width:100%;min-height:47px;padding:0 12px;color:var(--text,#1e241f);background:#fff;border:1px solid var(--border,#e5e6e1);border-radius:8px;outline-color:var(--primary,#1f3a2a);font-size:13px}
+.availability-extra-guests{margin-top:8px;color:var(--muted,#70766f);font-size:11px;line-height:1.6}
+.availability-addons{display:grid;gap:9px}
+.availability-addon{display:flex;align-items:flex-start;gap:10px;padding:12px;border:1px solid var(--border,#e5e6e1);border-radius:10px;background:#fff;cursor:pointer}
+.availability-addon.is-selected{border-color:var(--primary,#1f3a2a);background:#f3f7f1}
+.availability-addon input{width:16px;height:16px;margin-top:3px;flex-shrink:0;accent-color:var(--primary,#1f3a2a)}
+.availability-addon-icon{display:grid;place-items:center;flex-shrink:0;width:34px;height:34px;border-radius:8px;background:#eef3eb;color:var(--primary,#1f3a2a)}
+.availability-addon-copy{display:flex;flex:1;flex-direction:column;gap:4px;min-width:0}
+.availability-addon-copy strong{font-size:12px;line-height:1.4}
+.availability-addon-copy small{color:var(--muted,#70766f);font-size:10px;line-height:1.5}
+.availability-addon-price{font-size:11px;white-space:nowrap}
+.availability-price-breakdown{padding-top:21px;margin-top:21px;border-top:1px solid var(--border,#e5e6e1)}
+.availability-price-breakdown h3{margin-bottom:11px}
+.availability-price-row{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px dashed #e8e9e3}
+.availability-price-row span{color:var(--muted,#70766f);font-size:11px;line-height:1.5}
+.availability-price-row strong{color:var(--text,#1e241f);font-size:12px;white-space:nowrap}
+.availability-total{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-top:17px;margin-top:5px}
+.availability-total>div{display:flex;flex-direction:column;gap:5px}
+.availability-total>div>span{color:var(--text,#1e241f);font-size:14px;font-weight:700}
+.availability-total small{color:var(--muted,#70766f);font-size:11px}
+.availability-total>strong{display:flex;align-items:center;color:var(--primary,#1f3a2a);font-size:23px;white-space:nowrap}
+.availability-error{padding:12px;margin-top:16px;color:#a52b2b;background:#fff0f0;border:1px solid #f3d0d0;border-radius:8px;font-size:12px;line-height:1.6}
+.availability-book-button{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;min-height:51px;padding:13px 18px;margin-top:23px;color:#fff;background:var(--primary,#1f3a2a);border:0;border-radius:9px;font-size:14px;font-weight:700;transition:background .2s,transform .2s}
+.availability-book-button:hover{background:var(--primary-dark,#14281c);transform:translateY(-1px)}
+.availability-footer-note{display:flex;align-items:center;justify-content:center;gap:7px;margin-top:14px;color:var(--muted,#70766f);font-size:11px}
+.availability-footer-note svg{color:#4b8859}
+.availability-demo-note{margin-top:10px;color:#9b7948;font-size:10px;line-height:1.6;text-align:center}
+@media(max-width:480px){.availability-card{padding:17px 13px;border-radius:12px}.availability-heading h2{font-size:22px}.availability-heading p{font-size:12px}.availability-calendar{gap:6px}.availability-date{min-height:86px}.availability-date-price{font-size:9px}.availability-legend{gap:10px}.availability-legend>span{font-size:10px}.availability-total>strong{font-size:20px}.availability-addon{gap:7px;padding:10px}.availability-addon-icon{width:29px;height:29px}.availability-addon-price{font-size:10px}}
+.availability-nights-control {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 10px;
+  border: 1px solid #dce2d9;
+  border-radius: 9px;
+  background: #fff;
+  color: #1f3a2a;
+}
+
+.availability-nights-control select {
+  max-width: 115px;
+  padding: 7px 3px;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: #1f3a2a;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.availability-selection-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.availability-date-summary strong {
+  display: block;
+  margin-top: 6px;
+  line-height: 1.4;
+}
+
+@media (max-width: 480px) {
+  .availability-nights-control {
+    max-width: 100%;
+  }
+
+  .availability-nights-control select {
+    max-width: 105px;
+  }
+}

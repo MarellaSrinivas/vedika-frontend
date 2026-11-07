@@ -1,0 +1,373 @@
+
+/* FarmhouseCard.css */
+
+.vd-farmhouse-card {
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid #e8e9e4;
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: 0 3px 12px rgba(30, 36, 31, 0.04);
+  transition: transform 0.22s ease, box-shadow 0.22s ease;
+}
+
+.vd-farmhouse-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 28px rgba(30, 36, 31, 0.1);
+}
+
+.vd-card-image-wrap {
+  position: relative;
+  height: 215px;
+  overflow: hidden;
+  background: #e8eae5;
+}
+
+.vd-card-image-link {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.vd-card-image-link img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.vd-farmhouse-card:hover .vd-card-image-link img {
+  transform: scale(1.05);
+}
+
+.vd-discount-badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  z-index: 2;
+  padding: 6px 9px;
+  border-radius: 5px;
+  background: #fff0df;
+  color: #a6531b;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.3px;
+}
+
+.vd-date-badge {
+  position: absolute;
+  bottom: 12px;
+  left: 12px;
+  z-index: 2;
+  padding: 5px 8px;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 5px;
+  background: rgba(255, 255, 255, 0.93);
+  color: #34443b;
+  font-size: 10px;
+  font-weight: 700;
+  backdrop-filter: blur(6px);
+}
+
+.vd-heart-button {
+  position: absolute;
+  top: 11px;
+  right: 11px;
+  z-index: 3;
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.96);
+  color: #435147;
+  box-shadow: 0 2px 9px rgba(0, 0, 0, 0.1);
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.vd-heart-button:hover,
+.vd-heart-button.is-active {
+  color: #d94360;
+}
+
+.vd-heart-button.is-active {
+  background: #fff0f3;
+}
+
+.vd-image-dots {
+  position: absolute;
+  bottom: 15px;
+  left: 50%;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  transform: translateX(-50%);
+}
+
+.vd-image-dots button {
+  width: 6px;
+  height: 6px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.65);
+}
+
+.vd-image-dots button.active {
+  width: 17px;
+  border-radius: 5px;
+  background: #fff;
+}
+
+.vd-card-body {
+  padding: 15px;
+}
+
+.vd-card-title-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 9px;
+}
+
+.vd-card-title {
+  min-width: 0;
+  color: #203329;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.45;
+  overflow-wrap: anywhere;
+}
+
+.vd-card-title:hover {
+  color: #a77a3d;
+}
+
+.vd-card-rating {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: #a47721;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.vd-card-location {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 7px;
+  color: #788078;
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+.vd-card-location svg {
+  flex-shrink: 0;
+  color: #a77a3d;
+}
+
+.vd-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 17px;
+  padding-top: 13px;
+  border-top: 1px solid #eeefeb;
+}
+
+.vd-price-block {
+  min-width: 0;
+}
+
+.vd-original-price {
+  display: block;
+  margin-bottom: 3px;
+  color: #9a9f98;
+  font-size: 11px;
+  text-decoration: line-through;
+}
+
+.vd-price-block strong {
+  color: #203329;
+  font-size: 19px;
+  font-weight: 800;
+  letter-spacing: -0.4px;
+  white-space: nowrap;
+}
+
+.vd-price-unit {
+  color: #858b84;
+  font-size: 10px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.vd-reserve-button {
+  min-height: 37px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  flex-shrink: 0;
+  padding: 0 12px;
+  border: 0;
+  border-radius: 7px;
+  background: #1f3a2a;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  white-space: nowrap;
+  transition: background 0.2s ease;
+}
+
+.vd-reserve-button:hover {
+  background: #14281c;
+}
+
+.vd-reserve-button svg {
+  transition: transform 0.2s ease;
+}
+
+.vd-reserve-button:hover svg {
+  transform: translateX(2px);
+}
+
+@media (max-width: 1100px) {
+  .vd-card-image-wrap {
+    height: 190px;
+  }
+}
+
+@media (max-width: 600px) {
+  .vd-card-image-wrap {
+    height: 145px;
+  }
+
+  .vd-discount-badge {
+    top: 7px;
+    left: 7px;
+    padding: 5px 6px;
+    font-size: 8px;
+  }
+
+  .vd-heart-button {
+    top: 6px;
+    right: 6px;
+    width: 29px;
+    height: 29px;
+  }
+
+  .vd-heart-button svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  .vd-date-badge {
+    bottom: 7px;
+    left: 7px;
+    padding: 4px 6px;
+    font-size: 9px;
+  }
+
+  .vd-image-dots {
+    bottom: 10px;
+  }
+
+  .vd-card-body {
+    padding: 10px;
+  }
+
+  .vd-card-title {
+    font-size: 12px;
+  }
+
+  .vd-card-rating {
+    gap: 2px;
+    font-size: 10px;
+  }
+
+  .vd-card-rating svg {
+    width: 11px;
+    height: 11px;
+  }
+
+  .vd-card-location {
+    margin-top: 5px;
+    font-size: 10px;
+  }
+
+  .vd-card-footer {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 12px;
+    padding-top: 10px;
+  }
+
+  .vd-price-block strong {
+    font-size: 17px;
+  }
+
+  .vd-reserve-button {
+    width: 100%;
+    min-height: 34px;
+  }
+}
+
+@media (max-width: 360px) {
+  .vd-card-image-wrap {
+    height: 125px;
+  }
+
+  .vd-card-title {
+    font-size: 11px;
+  }
+
+  .vd-card-body {
+    padding: 8px;
+  }
+
+  .vd-price-block strong {
+    font-size: 15px;
+  }
+}
+
+
+.vd-card-image-link {
+  display: block;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  text-align: left;
+}
+
+.vd-card-image-link img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.vd-card-title {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-weight: 700;
+  text-align: left;
+  cursor: pointer;
+}
+
+.vd-card-title:hover {
+  color: #0868ae;
+}
