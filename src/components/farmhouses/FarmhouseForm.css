@@ -1,0 +1,364 @@
+
+.ff-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    background: rgba(12, 25, 40, 0.62);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.ff-modal {
+    width: min(100%, 1050px);
+    max-height: 94vh;
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+}
+
+.ff-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 22px 26px;
+    border-bottom: 1px solid #e8edf2;
+}
+
+.ff-header h2 {
+    margin: 0 0 5px;
+    color: #10243a;
+    font-size: 22px;
+}
+
+.ff-header p {
+    margin: 0;
+    color: #718096;
+    font-size: 13px;
+}
+
+.ff-close {
+    width: 38px;
+    height: 38px;
+    border: 0;
+    border-radius: 9px;
+    background: #f0f3f7;
+    color: #35465a;
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+}
+
+.ff-content {
+    padding: 22px 26px;
+    overflow-y: auto;
+}
+
+.ff-section {
+    padding-bottom: 24px;
+    margin-bottom: 24px;
+    border-bottom: 1px solid #edf0f4;
+}
+
+.ff-section:last-child {
+    margin-bottom: 0;
+    border-bottom: 0;
+}
+
+.ff-section h3 {
+    margin: 0 0 17px;
+    color: #10243a;
+    font-size: 16px;
+}
+
+.ff-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 17px;
+}
+
+.ff-grid label {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    color: #35465a;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.ff-grid input,
+.ff-grid select,
+.ff-grid textarea {
+    width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+    padding: 11px 12px;
+    border: 1px solid #dce3eb;
+    border-radius: 8px;
+    outline: none;
+    background: #fff;
+    color: #24364a;
+    font: inherit;
+    font-weight: 400;
+}
+
+.ff-grid input:focus,
+.ff-grid select:focus,
+.ff-grid textarea:focus {
+    border-color: #087bc7;
+    box-shadow: 0 0 0 3px rgba(8, 123, 199, 0.1);
+}
+
+.ff-grid textarea {
+    resize: vertical;
+}
+
+.ff-full {
+    grid-column: 1 / -1;
+}
+
+.ff-hint {
+    margin: -8px 0 15px;
+    color: #718096;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.ff-muted {
+    color: #718096;
+    font-size: 13px;
+}
+
+.ff-error {
+    color: #c0392b;
+    font-size: 13px;
+}
+
+.ff-amenities {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+}
+
+.ff-amenity {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-height: 44px;
+    padding: 10px 12px;
+    border: 1px solid #dce3eb;
+    border-radius: 9px;
+    color: #35465a;
+    font-size: 13px;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.ff-amenity:hover {
+    border-color: #087bc7;
+    background: #f5faff;
+}
+
+.ff-amenity.selected {
+    border-color: #087bc7;
+    background: #eef7ff;
+    color: #075b98;
+}
+
+.ff-amenity input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.ff-check {
+    width: 19px;
+    height: 19px;
+    flex-shrink: 0;
+    display: grid;
+    place-items: center;
+    border: 1px solid #b9c5d2;
+    border-radius: 5px;
+    background: #fff;
+    color: #fff;
+}
+
+.ff-amenity.selected .ff-check {
+    border-color: #087bc7;
+    background: #087bc7;
+}
+
+.ff-image-picker {
+    min-height: 125px;
+    padding: 20px;
+    border: 2px dashed #cbd7e3;
+    border-radius: 12px;
+    background: #f8fbff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    color: #087bc7;
+    cursor: pointer;
+    text-align: center;
+}
+
+.ff-image-picker span {
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.ff-image-picker small {
+    color: #718096;
+    font-size: 12px;
+}
+
+.ff-image-picker input {
+    display: none;
+}
+
+.ff-image-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 13px;
+    margin-top: 18px;
+}
+
+.ff-image {
+    position: relative;
+    min-width: 0;
+    border: 1px solid #e1e7ee;
+    border-radius: 9px;
+    overflow: hidden;
+    background: #fff;
+}
+
+.ff-image img {
+    width: 100%;
+    height: 115px;
+    display: block;
+    object-fit: cover;
+}
+
+.ff-image > button {
+    position: absolute;
+    top: 7px;
+    right: 7px;
+    width: 29px;
+    height: 29px;
+    border: 0;
+    border-radius: 7px;
+    background: rgba(255, 255, 255, 0.95);
+    color: #c0392b;
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+}
+
+.ff-image > small {
+    display: block;
+    padding: 8px;
+    overflow: hidden;
+    color: #64748b;
+    font-size: 11px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.ff-cover {
+    position: absolute;
+    top: 7px;
+    left: 7px;
+    padding: 5px 8px;
+    border-radius: 5px;
+    background: #087bc7;
+    color: #fff;
+    font-size: 10px;
+    font-weight: 700;
+}
+
+.ff-upload-progress {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 15px 0 0;
+    color: #087bc7;
+    font-size: 13px;
+}
+
+.ff-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    padding: 17px 26px;
+    border-top: 1px solid #e8edf2;
+    background: #fff;
+}
+
+.ff-footer button {
+    min-height: 42px;
+    padding: 0 20px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.ff-cancel {
+    border: 1px solid #dce3eb;
+    background: #fff;
+    color: #475569;
+}
+
+.ff-submit {
+    border: 0;
+    background: #087bc7;
+    color: #fff;
+}
+
+.ff-submit:disabled,
+.ff-cancel:disabled,
+.ff-close:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+@media (max-width: 700px) {
+    .ff-overlay {
+        padding: 8px;
+    }
+
+    .ff-modal {
+        max-height: 97vh;
+        border-radius: 12px;
+    }
+
+    .ff-header,
+    .ff-content,
+    .ff-footer {
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+
+    .ff-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .ff-full {
+        grid-column: auto;
+    }
+
+    .ff-amenities {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .ff-image-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}

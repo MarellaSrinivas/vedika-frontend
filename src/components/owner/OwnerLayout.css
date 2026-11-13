@@ -1,0 +1,271 @@
+.owner-layout {
+    display: flex;
+    min-height: 100vh;
+    background: #f4f6fa;
+}
+
+/* Sidebar */
+
+.owner-sidebar {
+    width: 260px;
+    min-width: 260px;
+    background: #10243a;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    padding: 25px 16px;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    z-index: 100;
+}
+
+.owner-sidebar-brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 5px 10px 28px;
+    border-bottom: 1px solid rgba(255,255,255,0.12);
+}
+
+.owner-brand-icon {
+    width: 43px;
+    height: 43px;
+    background: #087bc7;
+    border-radius: 11px;
+    display: grid;
+    place-items: center;
+}
+
+.owner-sidebar-brand h2 {
+    margin: 0;
+    font-size: 19px;
+}
+
+.owner-sidebar-brand span {
+    display: block;
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: #9db6ce;
+    margin-top: 4px;
+}
+
+.owner-sidebar-user {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 23px 8px;
+    border-bottom: 1px solid rgba(255,255,255,0.12);
+}
+
+.owner-user-avatar {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    background: #087bc7;
+    color: white;
+    font-weight: 700;
+    flex-shrink: 0;
+}
+
+.owner-sidebar-user h4 {
+    margin: 0 0 5px;
+    font-size: 13px;
+}
+
+.owner-sidebar-user span {
+    color: #9db6ce;
+    font-size: 11px;
+}
+
+/* Navigation */
+
+.owner-sidebar-nav {
+    padding-top: 25px;
+    flex: 1;
+}
+
+.owner-nav-label {
+    color: #8299af;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    padding: 0 12px;
+    margin-bottom: 14px;
+}
+
+.owner-nav-link {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    color: #c1cede;
+    text-decoration: none;
+    padding: 13px 14px;
+    margin-bottom: 6px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 500;
+    transition: 0.2s ease;
+}
+
+.owner-nav-link:hover {
+    background: rgba(255,255,255,0.08);
+    color: white;
+}
+
+.owner-nav-link.active {
+    background: #087bc7;
+    color: white;
+}
+
+/* Sidebar bottom */
+
+.owner-sidebar-bottom {
+    border-top: 1px solid rgba(255,255,255,0.12);
+    padding-top: 18px;
+}
+
+.owner-logout-btn {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: transparent;
+    border: none;
+    color: #ffb7b7;
+    padding: 12px;
+    width: 100%;
+    cursor: pointer;
+    font-size: 13px;
+    border-radius: 8px;
+}
+
+.owner-logout-btn:hover {
+    background: rgba(255,255,255,0.08);
+}
+
+.owner-sidebar-bottom p {
+    color: #8299af;
+    font-size: 10px;
+    text-align: center;
+    margin: 15px 0 0;
+}
+
+/* Main content */
+
+.owner-main-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.owner-topbar {
+    height: 85px;
+    background: white;
+    border-bottom: 1px solid #e8edf3;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 35px;
+}
+
+.owner-topbar span {
+    color: #087bc7;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+}
+
+.owner-topbar h3 {
+    margin: 5px 0 0;
+    color: #10243a;
+    font-size: 18px;
+}
+
+.owner-topbar-profile {
+    display: flex;
+    align-items: center;
+}
+
+.owner-page-content {
+    padding: 30px;
+}
+
+/* Mobile */
+
+.owner-mobile-header {
+    display: none;
+}
+
+.owner-sidebar-overlay {
+    display: none;
+}
+
+@media (max-width: 900px) {
+
+    .owner-mobile-header {
+        height: 65px;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        background: #10243a;
+        color: white;
+        padding: 0 18px;
+        position: sticky;
+        top: 0;
+        z-index: 120;
+    }
+
+    .owner-mobile-header h2 {
+        font-size: 18px;
+        margin: 0;
+    }
+
+    .owner-menu-toggle {
+        background: transparent;
+        border: none;
+        color: white;
+        display: grid;
+        place-items: center;
+        cursor: pointer;
+    }
+
+    .owner-layout {
+        display: block;
+    }
+
+    .owner-sidebar {
+        position: fixed;
+        top: 65px;
+        left: -280px;
+        height: calc(100vh - 65px);
+        transition: left 0.25s ease;
+    }
+
+    .owner-sidebar.open {
+        left: 0;
+    }
+
+    .owner-sidebar-overlay {
+        display: block;
+        position: fixed;
+        inset: 65px 0 0;
+        background: rgba(0,0,0,0.4);
+        z-index: 90;
+    }
+
+    .owner-topbar {
+        height: 70px;
+        padding: 0 20px;
+    }
+
+    .owner-page-content {
+        padding: 20px 15px;
+    }
+}
+
+@media (min-width: 901px) {
+    .owner-layout {
+        margin-top: 0;
+    }
+}

@@ -937,3 +937,38 @@
   opacity: 0.6;
   cursor: not-allowed;
 }
+
+
+
+.booking-availability-success {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 14px;
+  color: #287a45;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.booking-time-note {
+  margin-top: 10px;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.booking-date-error {
+  margin-top: 14px;
+}
+
+.booking-night-row {
+  padding-top: 7px;
+  padding-bottom: 7px;
+}
+
+.booking-pricing-type {
+  display: block;
+  margin-top: 3px;
+  color: #a57a42;
+  font-size: 10px;
+  text-transform: uppercase;
+}

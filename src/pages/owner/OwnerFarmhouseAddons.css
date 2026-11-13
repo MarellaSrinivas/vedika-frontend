@@ -1,0 +1,497 @@
+
+.owner-addons-page {
+    width: 100%;
+    min-height: 100%;
+    padding: 5px 0 30px;
+    color: #10243a;
+}
+
+.oa-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    margin-bottom: 25px;
+}
+
+.oa-header h1 {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 15px 0 8px;
+    font-size: 27px;
+    font-weight: 750;
+    color: #10243a;
+}
+
+.oa-header h1 svg {
+    color: #087bc7;
+}
+
+.oa-header p {
+    margin: 0;
+    color: #64748b;
+    font-size: 14px;
+}
+
+.oa-eyebrow {
+    color: #087bc7;
+    font-size: 11px;
+    font-weight: 750;
+    letter-spacing: 1.5px;
+}
+
+.oa-location {
+    display: inline-block;
+    margin-top: 8px;
+    color: #64748b;
+    font-size: 13px;
+}
+
+.oa-back-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 9px 13px;
+    border: 1px solid #dbe4ed;
+    border-radius: 7px;
+    background: #fff;
+    color: #334155;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.oa-back-btn:hover {
+    border-color: #087bc7;
+    color: #087bc7;
+    background: #f0f8ff;
+}
+
+.oa-message {
+    min-height: 250px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    color: #64748b;
+    font-size: 14px;
+}
+
+.oa-spin {
+    animation: oa-rotation 1s linear infinite;
+}
+
+@keyframes oa-rotation {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.oa-error {
+    margin: 20px 0;
+    padding: 14px 16px;
+    border: 1px solid #fecaca;
+    border-radius: 8px;
+    background: #fef2f2;
+    color: #b91c1c;
+    font-size: 14px;
+}
+
+/* Shared Add-on Manager layout */
+
+.owner-addons-page .aa-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    margin-bottom: 22px;
+}
+
+.owner-addons-page .aa-primary-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 11px 17px;
+    border: 0;
+    border-radius: 7px;
+    background: #087bc7;
+    color: #fff;
+    font-size: 13px;
+    font-weight: 650;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.owner-addons-page .aa-primary-btn:hover {
+    background: #065f9e;
+}
+
+.owner-addons-page .aa-primary-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.owner-addons-page .aa-summary {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.owner-addons-page .aa-summary > div {
+    padding: 18px;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    background: #fff;
+}
+
+.owner-addons-page .aa-summary span {
+    display: block;
+    margin-bottom: 9px;
+    color: #64748b;
+    font-size: 13px;
+}
+
+.owner-addons-page .aa-summary strong {
+    color: #10243a;
+    font-size: 25px;
+}
+
+.owner-addons-page .aa-list-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.owner-addons-page .aa-list-header h2 {
+    margin: 0;
+    color: #10243a;
+    font-size: 19px;
+}
+
+.owner-addons-page .aa-refresh-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 9px 12px;
+    border: 1px solid #dbe4ed;
+    border-radius: 7px;
+    background: #fff;
+    color: #334155;
+    cursor: pointer;
+}
+
+.owner-addons-page .aa-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+}
+
+.owner-addons-page .aa-card {
+    padding: 19px;
+    border: 1px solid #e2e8f0;
+    border-radius: 11px;
+    background: #fff;
+    transition: 0.2s ease;
+}
+
+.owner-addons-page .aa-card:hover {
+    border-color: #b8d9f1;
+    box-shadow: 0 5px 18px rgba(16, 36, 58, 0.06);
+}
+
+.owner-addons-page .aa-card-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 17px;
+}
+
+.owner-addons-page .aa-icon {
+    width: 43px;
+    height: 43px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 9px;
+    background: #eaf4fc;
+    color: #087bc7;
+}
+
+.owner-addons-page .aa-status {
+    padding: 5px 9px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 650;
+}
+
+.owner-addons-page .aa-status.available {
+    background: #dcfce7;
+    color: #15803d;
+}
+
+.owner-addons-page .aa-status.unavailable {
+    background: #fee2e2;
+    color: #b91c1c;
+}
+
+.owner-addons-page .aa-card h3 {
+    margin: 0 0 8px;
+    color: #10243a;
+    font-size: 17px;
+}
+
+.owner-addons-page .aa-description {
+    min-height: 40px;
+    margin: 0 0 16px;
+    color: #64748b;
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+.owner-addons-page .aa-price {
+    display: flex;
+    align-items: baseline;
+    gap: 7px;
+    margin-bottom: 18px;
+}
+
+.owner-addons-page .aa-price strong {
+    color: #087bc7;
+    font-size: 21px;
+}
+
+.owner-addons-page .aa-price span {
+    color: #64748b;
+    font-size: 12px;
+}
+
+.owner-addons-page .aa-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding-top: 14px;
+    border-top: 1px solid #edf1f5;
+}
+
+.owner-addons-page .aa-actions button {
+    min-height: 35px;
+    padding: 7px 10px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.owner-addons-page .aa-edit-btn {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    border: 1px solid #bfdbfe;
+    background: #eff6ff;
+    color: #1d4ed8;
+}
+
+.owner-addons-page .aa-toggle-btn {
+    flex: 1;
+    border: 1px solid #dbe4ed;
+    background: #fff;
+    color: #475569;
+}
+
+.owner-addons-page .aa-delete-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #fecaca;
+    background: #fff1f2;
+    color: #dc2626;
+}
+
+.owner-addons-page .aa-empty {
+    padding: 55px 20px;
+    text-align: center;
+    border: 1px dashed #cbd5e1;
+    border-radius: 12px;
+    background: #fff;
+    color: #64748b;
+}
+
+.owner-addons-page .aa-empty > svg {
+    color: #087bc7;
+}
+
+.owner-addons-page .aa-empty h3 {
+    margin: 13px 0 7px;
+    color: #10243a;
+}
+
+.owner-addons-page .aa-empty p {
+    margin-bottom: 20px;
+    font-size: 13px;
+}
+
+.owner-addons-page .aa-message {
+    padding: 30px;
+    text-align: center;
+    color: #64748b;
+}
+
+.owner-addons-page .aa-error {
+    margin: 15px 0;
+    padding: 12px;
+    border-radius: 7px;
+    background: #fef2f2;
+    color: #b91c1c;
+}
+
+/* Modal */
+
+.owner-addons-page .aa-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 1200;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: rgba(15, 23, 42, 0.55);
+}
+
+.owner-addons-page .aa-modal {
+    width: 100%;
+    max-width: 510px;
+    max-height: 90vh;
+    overflow-y: auto;
+    border-radius: 12px;
+    background: #fff;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+}
+
+.owner-addons-page .aa-modal-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding: 21px;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.owner-addons-page .aa-modal-header h2 {
+    margin: 0 0 6px;
+    color: #10243a;
+    font-size: 20px;
+}
+
+.owner-addons-page .aa-modal-header p {
+    margin: 0;
+    color: #64748b;
+    font-size: 12px;
+}
+
+.owner-addons-page .aa-modal-header > button {
+    border: 0;
+    background: transparent;
+    color: #64748b;
+    cursor: pointer;
+}
+
+.owner-addons-page .aa-form {
+    display: grid;
+    gap: 17px;
+    padding: 21px;
+}
+
+.owner-addons-page .aa-form label {
+    display: grid;
+    gap: 8px;
+    color: #334155;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.owner-addons-page .aa-form input:not([type="checkbox"]),
+.owner-addons-page .aa-form textarea,
+.owner-addons-page .aa-form select {
+    width: 100%;
+    padding: 11px 12px;
+    border: 1px solid #cbd5e1;
+    border-radius: 7px;
+    outline: none;
+    background: #fff;
+    color: #10243a;
+    font: inherit;
+}
+
+.owner-addons-page .aa-form input:focus,
+.owner-addons-page .aa-form textarea:focus,
+.owner-addons-page .aa-form select:focus {
+    border-color: #087bc7;
+    box-shadow: 0 0 0 3px rgba(8, 123, 199, 0.1);
+}
+
+.owner-addons-page .aa-form .aa-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+}
+
+.owner-addons-page .aa-checkbox input {
+    width: 16px;
+    height: 16px;
+    accent-color: #087bc7;
+}
+
+.owner-addons-page .aa-modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    padding: 16px 21px;
+    border-top: 1px solid #e2e8f0;
+}
+
+.owner-addons-page .aa-cancel-btn {
+    padding: 10px 15px;
+    border: 1px solid #cbd5e1;
+    border-radius: 7px;
+    background: #fff;
+    color: #475569;
+    cursor: pointer;
+}
+
+@media (max-width: 900px) {
+    .owner-addons-page .aa-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 600px) {
+    .oa-header h1 {
+        font-size: 22px;
+    }
+
+    .owner-addons-page .aa-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .owner-addons-page .aa-summary {
+        gap: 8px;
+    }
+
+    .owner-addons-page .aa-summary > div {
+        padding: 12px;
+    }
+
+    .owner-addons-page .aa-summary span {
+        font-size: 11px;
+    }
+
+    .owner-addons-page .aa-summary strong {
+        font-size: 20px;
+    }
+}

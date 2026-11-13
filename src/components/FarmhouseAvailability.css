@@ -110,3 +110,18 @@
     max-width: 105px;
   }
 }
+
+
+.availability-loading {
+  padding: 24px;
+  text-align: center;
+  color: #5d6878;
+}
+
+.availability-pricing-label {
+  display: block;
+  margin-top: 3px;
+  color: #a57a42;
+  font-size: 10px;
+  font-weight: 600;
+}

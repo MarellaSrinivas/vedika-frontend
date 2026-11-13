@@ -1,0 +1,242 @@
+
+.owner-layout {
+    display: flex;
+    min-height: 100vh;
+    background: #f5f7fb;
+}
+
+/* Sidebar */
+
+.owner-sidebar {
+    width: 260px;
+    min-width: 260px;
+    background: #10243a;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    padding: 25px 16px;
+    min-height: 100vh;
+}
+
+.owner-sidebar-brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 0 8px 30px;
+    border-bottom: 1px solid rgba(255,255,255,0.12);
+}
+
+.owner-brand-icon {
+    width: 43px;
+    height: 43px;
+    border-radius: 12px;
+    background: #0868ae;
+    display: grid;
+    place-items: center;
+}
+
+.owner-sidebar-brand h2 {
+    font-size: 19px;
+    margin: 0 0 4px;
+    color: #fff;
+}
+
+.owner-sidebar-brand span {
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: #9eb5ca;
+}
+
+.owner-sidebar-label {
+    color: #8299ae;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    padding: 28px 12px 13px;
+}
+
+.owner-sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.owner-nav-link {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    padding: 13px 14px;
+    border-radius: 9px;
+    text-decoration: none;
+    color: #c3d0dc;
+    font-size: 14px;
+    font-weight: 500;
+    transition: 0.2s ease;
+}
+
+.owner-nav-link:hover {
+    background: rgba(255,255,255,0.08);
+    color: #fff;
+}
+
+.owner-nav-link.active {
+    background: #0868ae;
+    color: #fff;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+}
+
+.owner-sidebar-bottom {
+    margin-top: auto;
+    padding-top: 30px;
+}
+
+.owner-help-card {
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.1);
+    padding: 17px;
+    border-radius: 11px;
+}
+
+.owner-help-card h4 {
+    margin: 0 0 8px;
+    color: white;
+    font-size: 14px;
+}
+
+.owner-help-card p {
+    color: #b7c7d5;
+    font-size: 12px;
+    line-height: 1.6;
+    margin: 0 0 13px;
+}
+
+.owner-help-card button {
+    width: 100%;
+    background: #0868ae;
+    color: white;
+    border: none;
+    border-radius: 7px;
+    padding: 10px;
+    cursor: pointer;
+}
+
+/* Main content */
+
+.owner-main {
+    flex: 1;
+    min-width: 0;
+}
+
+.owner-topbar {
+    min-height: 76px;
+    background: white;
+    border-bottom: 1px solid #e7ebf2;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 30px;
+}
+
+.owner-topbar-title span {
+    font-size: 10px;
+    color: #087bc7;
+    letter-spacing: 2px;
+    font-weight: 700;
+}
+
+.owner-topbar-title h3 {
+    font-size: 16px;
+    color: #10243a;
+    margin: 3px 0 0;
+}
+
+.owner-website-btn {
+    background: #eef5fc;
+    color: #0868ae;
+    border: 1px solid #d7e8f7;
+    border-radius: 7px;
+    padding: 10px 16px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.owner-website-btn:hover {
+    background: #e2effb;
+}
+
+.owner-page-content {
+    padding: 25px;
+}
+
+.owner-mobile-menu,
+.owner-mobile-close,
+.owner-sidebar-overlay {
+    display: none;
+}
+
+/* Responsive */
+
+@media (max-width: 850px) {
+    .owner-sidebar {
+        position: fixed;
+        z-index: 1001;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        min-height: 100%;
+        transform: translateX(-100%);
+        transition: transform 0.25s ease;
+    }
+
+    .owner-sidebar.open {
+        transform: translateX(0);
+    }
+
+    .owner-sidebar-overlay {
+        display: block;
+        position: fixed;
+        inset: 0;
+        background: rgba(0,0,0,0.45);
+        z-index: 1000;
+    }
+
+    .owner-mobile-menu {
+        display: grid;
+        place-items: center;
+        border: none;
+        background: transparent;
+        color: #10243a;
+        cursor: pointer;
+    }
+
+    .owner-mobile-close {
+        display: grid;
+        place-items: center;
+        margin-left: auto;
+        background: transparent;
+        border: none;
+        color: white;
+        cursor: pointer;
+    }
+
+    .owner-topbar {
+        padding: 12px 17px;
+        gap: 12px;
+    }
+
+    .owner-page-content {
+        padding: 18px 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .owner-website-btn {
+        padding: 9px 10px;
+        font-size: 11px;
+    }
+
+    .owner-topbar-title h3 {
+        font-size: 14px;
+    }
+}

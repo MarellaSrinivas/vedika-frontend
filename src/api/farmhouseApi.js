@@ -45,3 +45,11 @@ export const getFarmhouseAmenities = async (farmhouseId) => {
 
   return response.data;
 };
+
+export const getFarmhouseCalendar = async (farmhouseId) => {
+  const response = await api.get(
+    `/farmhouses/${farmhouseId}/calendar`
+  );
+
+  return response.data;
+};
