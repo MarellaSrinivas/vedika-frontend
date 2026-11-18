@@ -18,6 +18,8 @@ import Login from "./pages/Login/Login";
 import Register from "./pages/Register/Register";
 import MyBookings from "./pages/MyBookings/MyBookings";
 
+import PrivacyPolicy from "./pages/PrivacyPolicy";
+
 // Owner pages
 import OwnerDashboard from "./pages/owner/OwnerDashboard";
 import OwnerLayout from "./components/owner/OwnerLayout";
@@ -50,14 +52,14 @@ function App() {
                     <Route path="/" element={<Home />} />
                     <Route path="/farmhouses" element={<Farmhouses />} />
 
-                    <Route
-                        path="/farmhouses/:id"
-                        element={
+                    <Route path="/farmhouses/:id" element={
                             <RequireAuth>
                                 <FarmhouseDetails />
                             </RequireAuth>
                         }
                     />
+
+                    <Route path="/privacy-policy" element={<PrivacyPolicy />} />
 
                     <Route path="/login" element={<Login />} />
                     <Route path="/register" element={<Register />} />

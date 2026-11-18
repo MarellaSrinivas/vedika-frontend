@@ -112,7 +112,7 @@ export default function Footer() {
             <h3>Customer Support</h3>
 
             <ul>
-              <li><Link to="/my-bookings">My Bookings</Link></li>
+              <li><Link to="/privacy-policy">Privacy Policy</Link></li>
               <li><Link to="/login">My Account</Link></li>
               <li><Link to="/contact">Contact Us</Link></li>
               <li>
