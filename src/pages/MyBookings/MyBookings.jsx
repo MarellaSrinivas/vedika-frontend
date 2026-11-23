@@ -1,70 +1,110 @@
 
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import {
   CalendarDays,
   MapPin,
   Users,
-  CreditCard,
-  Clock3,
+  Moon,
+  Wallet,
   ArrowRight,
-  CalendarCheck,
-  ClipboardList,
+  LoaderCircle,
+  RefreshCw,
+  Receipt,
 } from "lucide-react";
+
+import { getMyBookings } from "../../api/bookingApi";
 
 import "./MyBookings.css";
 
-const STORAGE_KEY = "thevedika_demo_bookings";
+const formatDate = (date) => {
+  if (!date) return "N/A";
 
-const formatPrice = (amount) =>
-  new Intl.NumberFormat("en-IN", {
-    style: "currency",
-    currency: "INR",
-    maximumFractionDigits: 0,
-  }).format(Number(amount || 0));
-
-const formatDate = (dateString) => {
-  if (!dateString) return "Not available";
-
-  const date = new Date(`${dateString}T00:00:00`);
-
-  return date.toLocaleDateString("en-IN", {
-    day: "numeric",
+  return new Date(`${date}T00:00:00`).toLocaleDateString("en-IN", {
+    day: "2-digit",
     month: "short",
     year: "numeric",
   });
 };
 
-export default function MyBookings() {
+const formatCurrency = (amount) => {
+  return new Intl.NumberFormat("en-IN", {
+    style: "currency",
+    currency: "INR",
+    maximumFractionDigits: 0,
+  }).format(Number(amount || 0));
+};
+
+const getStatusClass = (status) => {
+  const value = (status || "").toUpperCase();
+
+  if (["CONFIRMED", "PAID", "SUCCESS", "COMPLETED"].includes(value)) {
+    return "booking-status-success";
+  }
+
+  if (["CANCELLED", "FAILED", "REFUNDED"].includes(value)) {
+    return "booking-status-danger";
+  }
+
+  return "booking-status-pending";
+};
+
+const MyBookings = () => {
   const [bookings, setBookings] = useState([]);
-  const [filter, setFilter] = useState("ALL");
-  const [selectedBooking, setSelectedBooking] = useState(null);
+  const [activeFilter, setActiveFilter] = useState("ALL");
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+
+  const loadBookings = async () => {
+    try {
+      setLoading(true);
+      setError("");
+
+      const response = await getMyBookings();
+
+      setBookings(Array.isArray(response) ? response : []);
+    } catch (err) {
+      setError(
+        err.response?.data?.message ||
+          "Unable to load your bookings. Please try again."
+      );
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
-    try {
-      const savedBookings = JSON.parse(
-        localStorage.getItem(STORAGE_KEY) || "[]"
-      );
-
-      setBookings(Array.isArray(savedBookings) ? savedBookings : []);
-    } catch {
-      setBookings([]);
-    }
+    loadBookings();
   }, []);
 
-  const filteredBookings = bookings.filter((booking) => {
-    if (filter === "ADVANCE") {
-      return booking.paymentOption === "ADVANCE";
-    }
+  const filteredBookings = useMemo(() => {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
 
-    if (filter === "FULL") {
-      return booking.paymentOption === "FULL";
-    }
+    return bookings.filter((booking) => {
+      const status = (booking.bookingStatus || "").toUpperCase();
 
-    return true;
-  });
+      if (activeFilter === "CANCELLED") {
+        return status.includes("CANCEL");
+      }
 
-  const totalBookings = bookings.length;
+      if (activeFilter === "UPCOMING") {
+        return (
+          !status.includes("CANCEL") &&
+          new Date(`${booking.checkOut}T00:00:00`) >= today
+        );
+      }
+
+      if (activeFilter === "PAST") {
+        return (
+          !status.includes("CANCEL") &&
+          new Date(`${booking.checkOut}T00:00:00`) < today
+        );
+      }
+
+      return true;
+    });
+  }, [bookings, activeFilter]);
 
   const totalPaid = bookings.reduce(
     (sum, booking) => sum + Number(booking.amountPaid || 0),
@@ -76,310 +116,272 @@ export default function MyBookings() {
     0
   );
 
+  if (loading) {
+    return (
+      <div className="my-bookings-loading">
+        <LoaderCircle size={35} className="booking-spin" />
+        <p>Loading your bookings...</p>
+      </div>
+    );
+  }
+
   return (
-    <main className="page my-bookings-page">
-      <div className="container">
-        <header className="my-bookings-header">
+    <div className="my-bookings-page">
+      <div className="my-bookings-container">
+
+        <div className="my-bookings-header">
           <div>
-            <p className="eyebrow">YOURVEDIKA JOURNEY</p>
-            <h1 className="heading-font">My Bookings</h1>
-            <p>
-              View your farmhouse reservations and payment breakdowns.
-            </p>
+            <span className="bookings-eyebrow">YOUR VEDIKA JOURNEY</span>
+            <h1>My Bookings</h1>
+            <p>Manage your farmhouse reservations and payments.</p>
           </div>
 
-          <Link to="/farmhouses" className="my-bookings-browse">
-            Explore farmhouses <ArrowRight size={17} />
+          <Link to="/farmhouses" className="explore-bookings-btn">
+            Explore Farmhouses
+            <ArrowRight size={17} />
           </Link>
-        </header>
-
-        <div className="my-bookings-demo-notice">
-          <Clock3 size={19} />
-          <p>
-            <strong>Frontend demo mode:</strong> these bookings are saved only
-            in this browser. Payment statuses are simulated, not verified by
-            Razorpay.
-          </p>
         </div>
 
-        <section className="my-bookings-stats">
-          <article className="my-booking-stat">
-            <span className="my-booking-stat-icon">
-              <CalendarCheck size={21} />
-            </span>
-            <div>
-              <p>Total bookings</p>
-              <strong>{totalBookings}</strong>
-            </div>
-          </article>
-
-          <article className="my-booking-stat">
-            <span className="my-booking-stat-icon">
-              <CreditCard size={21} />
-            </span>
-            <div>
-              <p>Amount paid (demo)</p>
-              <strong>{formatPrice(totalPaid)}</strong>
-            </div>
-          </article>
-
-          <article className="my-booking-stat">
-            <span className="my-booking-stat-icon">
-              <Clock3 size={21} />
-            </span>
-            <div>
-              <p>Balance at check-in</p>
-              <strong>{formatPrice(totalBalance)}</strong>
-            </div>
-          </article>
-        </section>
-
-        <div className="my-bookings-toolbar">
-          <div>
-            <h2>Your reservations</h2>
-            <p>
-              {filteredBookings.length}{" "}
-              {filteredBookings.length === 1 ? "booking" : "bookings"} found
-            </p>
+        {error && (
+          <div className="bookings-error">
+            <p>{error}</p>
+            <button onClick={loadBookings}>
+              <RefreshCw size={16} />
+              Try Again
+            </button>
           </div>
+        )}
 
-          <div className="my-bookings-filters">
-            {[
-              { label: "All bookings", value: "ALL" },
-              { label: "Full payment", value: "FULL" },
-              { label: "Advance payment", value: "ADVANCE" },
-            ].map((option) => (
-              <button
-                key={option.value}
-                type="button"
-                className={filter === option.value ? "active" : ""}
-                onClick={() => setFilter(option.value)}
-              >
-                {option.label}
-              </button>
-            ))}
-          </div>
-        </div>
+        {!error && (
+          <>
+            <div className="booking-summary-grid">
+              <div className="booking-summary-card">
+                <CalendarDays size={23} />
+                <div>
+                  <span>Total Bookings</span>
+                  <strong>{bookings.length}</strong>
+                </div>
+              </div>
 
-        {filteredBookings.length === 0 ? (
-          <section className="my-bookings-empty">
-            <span>
-              <ClipboardList size={36} />
-            </span>
+              <div className="booking-summary-card">
+                <Wallet size={23} />
+                <div>
+                  <span>Total Paid</span>
+                  <strong>{formatCurrency(totalPaid)}</strong>
+                </div>
+              </div>
 
-            <h2>
-              {totalBookings === 0
-                ? "No bookings yet"
-                : "No bookings in this category"}
-            </h2>
+              <div className="booking-summary-card">
+                <Receipt size={23} />
+                <div>
+                  <span>Balance Due</span>
+                  <strong>{formatCurrency(totalBalance)}</strong>
+                </div>
+              </div>
+            </div>
 
-            <p>
-              {totalBookings === 0
-                ? "Your farmhouse bookings will appear here after you complete the booking demo."
-                : "Try another payment filter to see your bookings."}
-            </p>
+            <div className="bookings-filter-section">
+              <div className="bookings-filter-heading">
+                <h2>Your Reservations</h2>
+                <span>{filteredBookings.length} bookings</span>
+              </div>
 
-            <Link to="/farmhouses" className="my-bookings-browse">
-              Explore farmhouses <ArrowRight size={17} />
-            </Link>
-          </section>
-        ) : (
-          <section className="my-bookings-list">
-            {filteredBookings.map((booking) => {
-              const isAdvance = booking.paymentOption === "ADVANCE";
+              <div className="bookings-filter-tabs">
+                {[
+                  { label: "All Bookings", value: "ALL" },
+                  { label: "Upcoming", value: "UPCOMING" },
+                  { label: "Past", value: "PAST" },
+                  { label: "Cancelled", value: "CANCELLED" },
+                ].map((filter) => (
+                  <button
+                    key={filter.value}
+                    className={
+                      activeFilter === filter.value ? "active" : ""
+                    }
+                    onClick={() => setActiveFilter(filter.value)}
+                  >
+                    {filter.label}
+                  </button>
+                ))}
+              </div>
+            </div>
 
-              return (
-                <article
-                  className="my-booking-card"
-                  key={booking.bookingReference}
-                >
-                  <img
-                    className="my-booking-image"
-                    src={booking.image}
-                    alt={booking.farmhouseName}
-                  />
+            {filteredBookings.length === 0 ? (
+              <div className="no-bookings">
+                <div className="no-bookings-icon">
+                  <CalendarDays size={35} />
+                </div>
 
-                  <div className="my-booking-content">
-                    <div className="my-booking-title-row">
+                <h2>
+                  {bookings.length === 0
+                    ? "No bookings yet"
+                    : "No bookings found"}
+                </h2>
+
+                <p>
+                  {bookings.length === 0
+                    ? "Your farmhouse reservations will appear here once you make a booking."
+                    : "There are no bookings in this category."}
+                </p>
+
+                {bookings.length === 0 && (
+                  <Link to="/farmhouses">
+                    Explore Farmhouses
+                    <ArrowRight size={17} />
+                  </Link>
+                )}
+              </div>
+            ) : (
+              <div className="booking-list">
+                {filteredBookings.map((booking) => (
+                  <article
+                    className="my-booking-card"
+                    key={booking.bookingReference}
+                  >
+                    <div className="my-booking-top">
                       <div>
-                        <p className="my-booking-reference">
-                          Ref: {booking.bookingReference}
-                        </p>
-                        <h3>{booking.farmhouseName}</h3>
-                        <p className="my-booking-location">
-                          <MapPin size={15} />
-                          {booking.location}
-                        </p>
+                        <span className="booking-reference-label">
+                          BOOKING REFERENCE
+                        </span>
+                        <strong className="booking-reference">
+                          {booking.bookingReference}
+                        </strong>
                       </div>
 
-                      <span className="my-booking-demo-status">
-                        DEMO
+                      <span
+                        className={`booking-status-badge ${getStatusClass(
+                          booking.bookingStatus
+                        )}`}
+                      >
+                        {(booking.bookingStatus || "PENDING").replaceAll(
+                          "_",
+                          " "
+                        )}
                       </span>
                     </div>
 
-                    <div className="my-booking-details">
-                      <div>
-                        <CalendarDays size={17} />
-                        <span>
-                          {formatDate(booking.checkIn)} –{" "}
-                          {formatDate(booking.checkOut)}
+                    <div className="my-booking-main">
+                      <div className="my-booking-info">
+                        <h3>{booking.farmhouseName || "Farmhouse"}</h3>
+
+                        <p className="booking-location">
+                          <MapPin size={16} />
+                          {booking.location || "Location unavailable"}
+                        </p>
+
+                        <div className="booking-detail-grid">
+                          <div>
+                            <CalendarDays size={17} />
+                            <div>
+                              <span>Check-in</span>
+                              <strong>{formatDate(booking.checkIn)}</strong>
+                            </div>
+                          </div>
+
+                          <div>
+                            <CalendarDays size={17} />
+                            <div>
+                              <span>Check-out</span>
+                              <strong>{formatDate(booking.checkOut)}</strong>
+                            </div>
+                          </div>
+
+                          <div>
+                            <Users size={17} />
+                            <div>
+                              <span>Guests</span>
+                              <strong>{booking.guests || 0} Guests</strong>
+                            </div>
+                          </div>
+
+                          <div>
+                            <Moon size={17} />
+                            <div>
+                              <span>Duration</span>
+                              <strong>{booking.nights || 0} Nights</strong>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="my-booking-payment">
+                        <span className="payment-heading">
+                          PAYMENT SUMMARY
                         </span>
-                      </div>
 
-                      <div>
-                        <Users size={17} />
-                        <span>
-                          {booking.guests}{" "}
-                          {booking.guests === 1 ? "guest" : "guests"}
-                        </span>
-                      </div>
+                        <div className="payment-row">
+                          <span>Total Amount</span>
+                          <strong>{formatCurrency(booking.totalAmount)}</strong>
+                        </div>
 
-                      <div>
-                        <CreditCard size={17} />
-                        <span>
-                          {isAdvance ? "₹1,000 advance" : "Full payment"}
-                        </span>
-                      </div>
-                    </div>
+                        <div className="payment-row">
+                          <span>Amount Paid</span>
+                          <strong className="paid-amount">
+                            {formatCurrency(booking.amountPaid)}
+                          </strong>
+                        </div>
 
-                    <div className="my-booking-payment">
-                      <div>
-                        <span>Total amount</span>
-                        <strong>{formatPrice(booking.totalAmount)}</strong>
-                      </div>
+                        <div className="payment-row">
+                          <span>Balance Due</span>
+                          <strong className="balance-amount">
+                            {formatCurrency(booking.balanceDue)}
+                          </strong>
+                        </div>
 
-                      <div>
-                        <span>Paid (demo)</span>
-                        <strong>{formatPrice(booking.amountPaid)}</strong>
-                      </div>
+                        <div className="payment-status-row">
+                          <span>Payment Status</span>
+                          <span
+                            className={`booking-status-badge ${getStatusClass(
+                              booking.paymentStatus
+                            )}`}
+                          >
+                            {(booking.paymentStatus || "UNPAID").replaceAll(
+                              "_",
+                              " "
+                            )}
+                          </span>
+                        </div>
 
-                      <div>
-                        <span>Due at check-in</span>
-                        <strong>{formatPrice(booking.balanceDue)}</strong>
+                        <div className="payment-option">
+                          Payment Option:{" "}
+                          <strong>
+                            {(booking.paymentOption || "N/A").replaceAll(
+                              "_",
+                              " "
+                            )}
+                          </strong>
+                        </div>
                       </div>
                     </div>
 
                     <div className="my-booking-footer">
-                      <p>
-                        Payment:{" "}
-                        <strong>
-                          {booking.paymentStatus || "DEMO_PAID"}
-                        </strong>
-                      </p>
+                      <span>
+                        Booked on{" "}
+                        {booking.createdAt
+                          ? new Date(booking.createdAt).toLocaleDateString(
+                              "en-IN"
+                            )
+                          : "N/A"}
+                      </span>
 
-                      <button
-                        type="button"
-                        onClick={() => setSelectedBooking(booking)}
+                      <Link
+                        to={`/booking-confirmation/${encodeURIComponent(
+                          booking.bookingReference
+                        )}`}
                       >
-                        View details <ArrowRight size={16} />
-                      </button>
+                        View Booking
+                        <ArrowRight size={16} />
+                      </Link>
                     </div>
-                  </div>
-                </article>
-              );
-            })}
-          </section>
-        )}
-
-        {selectedBooking && (
-          <div
-            className="my-booking-modal-backdrop"
-            onClick={() => setSelectedBooking(null)}
-            role="presentation"
-          >
-            <section
-              className="my-booking-modal"
-              role="dialog"
-              aria-modal="true"
-              aria-labelledby="my-booking-modal-title"
-              onClick={(event) => event.stopPropagation()}
-            >
-              <button
-                type="button"
-                className="my-booking-modal-close"
-                onClick={() => setSelectedBooking(null)}
-                aria-label="Close booking details"
-              >
-                ×
-              </button>
-
-              <p className="eyebrow">BOOKING DETAILS</p>
-              <h2 id="my-booking-modal-title">
-                {selectedBooking.farmhouseName}
-              </h2>
-
-              <p className="my-booking-modal-reference">
-                {selectedBooking.bookingReference}
-              </p>
-
-              <div className="my-booking-modal-rows">
-                <p>
-                  <span>Guest</span>
-                  <strong>{selectedBooking.customer?.fullName}</strong>
-                </p>
-                <p>
-                  <span>Email</span>
-                  <strong>{selectedBooking.customer?.email}</strong>
-                </p>
-                <p>
-                  <span>Phone</span>
-                  <strong>{selectedBooking.customer?.phone}</strong>
-                </p>
-                <p>
-                  <span>Check-in</span>
-                  <strong>{formatDate(selectedBooking.checkIn)}</strong>
-                </p>
-                <p>
-                  <span>Check-out</span>
-                  <strong>{formatDate(selectedBooking.checkOut)}</strong>
-                </p>
-                <p>
-                  <span>Duration</span>
-                  <strong>
-                    {selectedBooking.nights}{" "}
-                    {selectedBooking.nights === 1 ? "night" : "nights"}
-                  </strong>
-                </p>
-                <p>
-                  <span>Payment method</span>
-                  <strong>
-                    {selectedBooking.paymentOption === "ADVANCE"
-                      ? "₹1,000 advance"
-                      : "Full payment"}
-                  </strong>
-                </p>
-                <p>
-                  <span>Total booking amount</span>
-                  <strong>{formatPrice(selectedBooking.totalAmount)}</strong>
-                </p>
-                <p>
-                  <span>Amount paid (demo)</span>
-                  <strong>{formatPrice(selectedBooking.amountPaid)}</strong>
-                </p>
-                <p>
-                  <span>Balance at check-in</span>
-                  <strong>{formatPrice(selectedBooking.balanceDue)}</strong>
-                </p>
+                  </article>
+                ))}
               </div>
-
-              {selectedBooking.specialRequests && (
-                <div className="my-booking-special-requests">
-                  <span>Special requests</span>
-                  <p>{selectedBooking.specialRequests}</p>
-                </div>
-              )}
-
-              <Link
-                to={`/booking-confirmation/${selectedBooking.bookingReference}`}
-                state={{ booking: selectedBooking }}
-                className="my-bookings-browse"
-              >
-                Open confirmation <ArrowRight size={17} />
-              </Link>
-            </section>
-          </div>
+            )}
+          </>
         )}
       </div>
-    </main>
+    </div>
   );
-}
+};
+
+export default MyBookings;

@@ -17,8 +17,10 @@ import BookingConfirmation from "./pages/Booking/BookingConfirmation";
 import Login from "./pages/Login/Login";
 import Register from "./pages/Register/Register";
 import MyBookings from "./pages/MyBookings/MyBookings";
-
 import PrivacyPolicy from "./pages/PrivacyPolicy";
+
+import CustomerProfile from "./pages/CustomerProfile/CustomerProfile";
+
 
 // Owner pages
 import OwnerDashboard from "./pages/owner/OwnerDashboard";
@@ -120,6 +122,12 @@ function App() {
                             />
                         </Route>
                     </Route>
+
+
+                    {/* Customer profile */}
+<Route element={<ProtectedRoute allowedRoles={["CUSTOMER"]} />}>
+    <Route path="/profile" element={<CustomerProfile />} />
+</Route>
                 </Routes>
 
                 <Footer />

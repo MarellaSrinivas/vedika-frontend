@@ -1,5 +1,5 @@
  
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Link,
   useNavigate,
@@ -21,7 +21,7 @@ export default function Login() {
   const location = useLocation();
   const [searchParams] = useSearchParams();
 
-  const { requestOtp, confirmOtp, loading } = useAuth();
+const { requestOtp, confirmOtp, loading, isAuthenticated } = useAuth();
 
   const queryRedirect = searchParams.get("redirect");
   const stateRedirect = location.state?.from?.pathname;
@@ -34,6 +34,12 @@ export default function Login() {
     !requestedRedirect.startsWith("//")
       ? requestedRedirect
       : "/my-bookings";
+
+      useEffect(() => {
+  if (isAuthenticated) {
+    navigate("/profile", { replace: true });
+  }
+}, [isAuthenticated, navigate]);
 
   const [phone, setPhone] = useState("");
   const [otp, setOtp] = useState("");
@@ -159,6 +165,10 @@ const handleSendOtp = async (event) => {
     setError("");
     setMessage("");
   };
+
+  if (isAuthenticated) {
+  return null;
+}
 
   return (
     <main className="auth-page">

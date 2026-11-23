@@ -1,17 +1,32 @@
-import axios from "axios";
 
-const api = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL || "http://localhost:8080/api",
-  headers: {
-    "Content-Type": "application/json",
-  },
-});
+import api from "./api";
 
-export const createBooking = async (bookingData) => {
-  const response = await api.post("/bookings", bookingData);
+// Create a booking for a specific farmhouse.
+export const createBooking = async (farmhouseId, bookingData) => {
+  const response = await api.post(
+    `/bookings/farmhouses/${farmhouseId}`,
+    bookingData
+  );
+
   return response.data;
 };
 
+// Fetch bookings belonging to the logged-in customer.
+export const getMyBookings = async () => {
+  const response = await api.get("/bookings/my-bookings");
+  return response.data;
+};
+
+// Fetch one booking using its reference.
+export const getBookingByReference = async (reference) => {
+  const response = await api.get(
+    `/bookings/${encodeURIComponent(reference)}`
+  );
+
+  return response.data;
+};
+
+// Razorpay order creation.
 export const createRazorpayOrder = async (bookingId, paymentOption) => {
   const response = await api.post("/payments/razorpay/order", {
     bookingId,
@@ -21,18 +36,11 @@ export const createRazorpayOrder = async (bookingId, paymentOption) => {
   return response.data;
 };
 
+// Razorpay payment verification.
 export const verifyRazorpayPayment = async (paymentData) => {
   const response = await api.post(
     "/payments/razorpay/verify",
     paymentData
-  );
-
-  return response.data;
-};
-
-export const getBookingByReference = async (reference) => {
-  const response = await api.get(
-    `/bookings/reference/${encodeURIComponent(reference)}`
   );
 
   return response.data;
