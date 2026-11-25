@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
@@ -25,11 +24,32 @@ export default function FarmhouseCard({ farmhouse }) {
   const [imageIndex, setImageIndex] = useState(0);
   const [wishlisted, setWishlisted] = useState(false);
 
+  // Normalize backend image objects into image URLs.
   const images = Array.isArray(farmhouse.images)
-    ? farmhouse.images.filter(Boolean)
+    ? farmhouse.images
+        .filter(Boolean)
+        .map((img) => ({
+          ...img,
+          url:
+            typeof img === "string"
+              ? img
+              : img.imageUrl || img.url || img.image || "",
+        }))
+        .filter((img) => img.url)
+        .sort((a, b) => {
+          // Cover image first, then display order.
+          if (a.coverImage && !b.coverImage) return -1;
+          if (!a.coverImage && b.coverImage) return 1;
+
+          return (
+            Number(a.displayOrder ?? 0) -
+            Number(b.displayOrder ?? 0)
+          );
+        })
     : [];
 
-  const image = images[imageIndex] || FALLBACK_IMAGE;
+  const image =
+    images[imageIndex]?.url || FALLBACK_IMAGE;
 
   const price = Number(farmhouse.basePrice ?? 0);
   const originalPrice = Number(farmhouse.weekendPrice ?? 0);
@@ -43,7 +63,6 @@ export default function FarmhouseCard({ farmhouse }) {
 
   const detailsUrl = `/farmhouses/${farmhouse.id}`;
 
-  // Protect farmhouse details navigation.
   const handleViewDetails = () => {
     if (!isLoggedIn()) {
       navigate(
