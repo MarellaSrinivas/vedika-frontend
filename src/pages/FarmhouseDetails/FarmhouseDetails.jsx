@@ -1,3 +1,4 @@
+
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import {
@@ -19,12 +20,27 @@ import {
   ChevronLeft,
   ChevronRight,
   Heart,
-  Tv, Music, Trees, Utensils, Coffee, Dumbbell, CalendarDays, Sparkles, Info, Navigation,
+  Tv,
+  Music,
+  Trees,
+  Utensils,
+  Coffee,
+  Dumbbell,
+  CalendarDays,
+  Sparkles,
+  Info,
+  Navigation,
 } from "lucide-react";
 
-import { getFarmhouseById, getFarmhouseAmenities  } from "../../api/farmhouseApi";
+import SEO from "../../components/SEO";
+import {
+  getFarmhouseById,
+  getFarmhouseAmenities,
+} from "../../api/farmhouseApi";
 import FarmhouseAvailability from "../../components/FarmhouseAvailability";
 import "./FarmhouseDetails.css";
+
+const SITE_URL = "https://thevedika.com";
 
 const amenityIcons = {
   "Private Pool": Waves,
@@ -43,7 +59,7 @@ const amenityIcons = {
   "Music System": Music,
   "Large Lawn": Trees,
   Garden: Trees,
-TV: Tv,
+  TV: Tv,
   Television: Tv,
   "Dining Area": Utensils,
   Restaurant: Utensils,
@@ -103,6 +119,10 @@ function FarmhouseDetails() {
   const [selectedImage, setSelectedImage] = useState(0);
   const [wishlisted, setWishlisted] = useState(false);
 
+  const [amenities, setAmenities] = useState([]);
+  const [amenitiesLoading, setAmenitiesLoading] = useState(true);
+  const [amenitiesError, setAmenitiesError] = useState("");
+
   const loadFarmhouse = useCallback(async () => {
     try {
       setLoading(true);
@@ -128,7 +148,24 @@ function FarmhouseDetails() {
   const imageList = useMemo(() => {
     if (!farmhouse) return [];
 
-    const images = getList(farmhouse.images)
+    const rawImages = getList(farmhouse.images);
+
+    const sortedImages = [...rawImages].sort((a, b) => {
+      const aCover =
+        typeof a === "object" && a?.coverImage === true;
+      const bCover =
+        typeof b === "object" && b?.coverImage === true;
+
+      if (aCover && !bCover) return -1;
+      if (!aCover && bCover) return 1;
+
+      return (
+        Number(a?.displayOrder ?? 0) -
+        Number(b?.displayOrder ?? 0)
+      );
+    });
+
+    const images = sortedImages
       .map(getImageUrl)
       .filter(Boolean);
 
@@ -146,9 +183,6 @@ function FarmhouseDetails() {
 
     return images.length ? images : [fallbackImage];
   }, [farmhouse]);
-const [amenities, setAmenities] = useState([]);
-const [amenitiesLoading, setAmenitiesLoading] = useState(true);
-const [amenitiesError, setAmenitiesError] = useState("");
 
   const addOns = useMemo(
     () => getList(farmhouse?.addOns || farmhouse?.addons),
@@ -161,8 +195,11 @@ const [amenitiesError, setAmenitiesError] = useState("");
   );
 
   const rating = Number(farmhouse?.rating || 0);
+
   const reviewCount = Number(
-    farmhouse?.reviewCount ?? farmhouse?.reviewsCount ?? reviews.length
+    farmhouse?.reviewCount ??
+      farmhouse?.reviewsCount ??
+      reviews.length
   );
 
   const maximumGuests = Number(
@@ -170,6 +207,7 @@ const [amenitiesError, setAmenitiesError] = useState("");
   );
 
   const minimumGuests = Number(farmhouse?.minimumGuests ?? 5);
+
   const bedrooms = farmhouse?.bedrooms ?? "—";
   const bathrooms = farmhouse?.bathrooms ?? "—";
 
@@ -192,61 +230,121 @@ const [amenitiesError, setAmenitiesError] = useState("");
   };
 
   useEffect(() => {
-  if (!id) return;
+    if (!id) return;
 
-  const loadAmenities = async () => {
-    try {
-      setAmenitiesLoading(true);
-      setAmenitiesError("");
+    const loadAmenities = async () => {
+      try {
+        setAmenitiesLoading(true);
+        setAmenitiesError("");
 
-      const response = await getFarmhouseAmenities(id);
+        const response = await getFarmhouseAmenities(id);
 
-      // Supports a plain list or common Spring response wrappers.
-      const list = Array.isArray(response)
-        ? response
-        : Array.isArray(response?.data)
-          ? response.data
-          : Array.isArray(response?.content)
-            ? response.content
-            : [];
+        const list = Array.isArray(response)
+          ? response
+          : Array.isArray(response?.data)
+            ? response.data
+            : Array.isArray(response?.content)
+              ? response.content
+              : [];
 
-      // Backend returns FarmhouseAmenity records.
-      const formattedAmenities = list
-        .map((item) => {
-          const amenity = item.amenity ?? item;
+        const formattedAmenities = list
+          .map((item) => {
+            const amenity = item.amenity ?? item;
 
-          return {
-            id: item.id ?? amenity.id,
-            name:
-              amenity.name ??
-              item.amenityName ??
-              item.name ??
-              "",
-          };
-        })
-        .filter((item) => item.name);
+            return {
+              id: item.id ?? amenity.id,
+              name:
+                amenity.name ??
+                item.amenityName ??
+                item.name ??
+                "",
+            };
+          })
+          .filter((item) => item.name);
 
-      setAmenities(formattedAmenities);
-    } catch (error) {
-      console.error("Unable to load farmhouse amenities:", error);
-      setAmenitiesError("Unable to load amenities. Please try again.");
-    } finally {
-      setAmenitiesLoading(false);
-    }
-  };
+        setAmenities(formattedAmenities);
+      } catch (error) {
+        console.error("Unable to load farmhouse amenities:", error);
+        setAmenitiesError("Unable to load amenities. Please try again.");
+      } finally {
+        setAmenitiesLoading(false);
+      }
+    };
 
-  loadAmenities();
-}, [id]);
+    loadAmenities();
+  }, [id]);
 
   const locationText = farmhouse?.location || "";
+
   const mapQuery = encodeURIComponent(
     [farmhouse?.name, locationText].filter(Boolean).join(", ")
   );
 
   const rules = getList(farmhouse?.houseRules || farmhouse?.rules);
+
   const description =
     farmhouse?.description ||
     "Enjoy a private getaway with family and friends in a comfortable setting.";
+
+  // -----------------------------------------
+  // DYNAMIC SEO
+  // -----------------------------------------
+
+  const seoTitle = farmhouse
+    ? `${farmhouse.name} - Farmhouse Stay Near ${locationText || "Hyderabad"}`
+    : "Farmhouse Stays Near Hyderabad";
+
+  const seoDescription = farmhouse
+    ? `Book ${farmhouse.name} in ${locationText || "Hyderabad"} with The Vedika. ${description} Explore prices, amenities, guest capacity and availability.`
+    : "Discover and book beautiful farmhouse stays and weekend getaways near Hyderabad with The Vedika.";
+
+  const seoKeywords = [
+    farmhouse?.name,
+    `farmhouse in ${locationText}`,
+    `farmhouse near ${locationText}`,
+    "farmhouse near Hyderabad",
+    "farmhouse booking Hyderabad",
+    "weekend getaway Hyderabad",
+    "private farmhouse stay",
+    "farmhouse for family",
+    "farmhouse for friends",
+    "The Vedika",
+    ...amenities.map((item) => item.name),
+  ].filter(Boolean);
+
+  const seoImage =
+    imageList[0] || fallbackImage;
+
+  const canonicalUrl =
+    `${SITE_URL}/farmhouses/${farmhouse?.id || id}`;
+
+  // Structured data for this individual property.
+  const structuredData = farmhouse
+    ? {
+        "@context": "https://schema.org",
+        "@type": "LodgingBusiness",
+        name: farmhouse.name,
+        description: seoDescription,
+        url: canonicalUrl,
+        image: imageList.map((image) =>
+          image.startsWith("http")
+            ? image
+            : `${SITE_URL}${image.startsWith("/") ? image : `/${image}`}`
+        ),
+        address: {
+          "@type": "PostalAddress",
+          addressLocality: locationText || "Hyderabad",
+          addressRegion: "Telangana",
+          addressCountry: "IN",
+        },
+        ...(basePrice > 0 && {
+          priceRange: `₹${basePrice} per night`,
+        }),
+        ...(maximumGuests > 0 && {
+          maximumAttendeeCapacity: maximumGuests,
+        }),
+      }
+    : null;
 
   if (loading) {
     return (
@@ -264,16 +362,24 @@ const [amenitiesError, setAmenitiesError] = useState("");
       <main className="fd-page">
         <div className="fd-container fd-error">
           <Info size={34} />
-          <h1>{error ? "Unable to load property" : "Farmhouse not found"}</h1>
+          <h1>
+            {error ? "Unable to load property" : "Farmhouse not found"}
+          </h1>
+
           <p>
             {error ||
               "This property may have been removed or the link is incorrect."}
           </p>
+
           {error && (
-            <button className="fd-primary-button" onClick={loadFarmhouse}>
+            <button
+              className="fd-primary-button"
+              onClick={loadFarmhouse}
+            >
               Try again
             </button>
           )}
+
           <Link to="/farmhouses" className="fd-secondary-button">
             Browse farmhouses
           </Link>
@@ -284,9 +390,15 @@ const [amenitiesError, setAmenitiesError] = useState("");
 
   return (
     <main className="fd-page">
-      <div className="fd-container">
-        {/* Breadcrumb and title */}
+      <SEO
+        title={seoTitle}
+        description={seoDescription}
+        image={seoImage}
+        url={`/farmhouses/${farmhouse.id}`}
+        keywords={seoKeywords}
+      />
 
+      <div className="fd-container">
         <div className="fd-breadcrumb">
           <Link to="/">Home</Link>
           <ChevronRight size={13} />
@@ -335,8 +447,6 @@ const [amenitiesError, setAmenitiesError] = useState("");
           </button>
         </div>
 
-        {/* Property gallery */}
-
         <section className="fd-gallery">
           <div className="fd-gallery-main">
             <img
@@ -383,6 +493,7 @@ const [amenitiesError, setAmenitiesError] = useState("");
                 aria-label={`View property photo ${index + 1}`}
               >
                 <img src={image} alt="" loading="lazy" />
+
                 {index === 3 && imageList.length > 4 && (
                   <span>+{imageList.length - 4} photos</span>
                 )}
@@ -390,8 +501,6 @@ const [amenitiesError, setAmenitiesError] = useState("");
             ))}
           </div>
         </section>
-
-        {/* Quick property facts */}
 
         <section className="fd-quick-facts">
           <div className="fd-fact">
@@ -431,111 +540,109 @@ const [amenitiesError, setAmenitiesError] = useState("");
           </div>
         </section>
 
-        {/* Main content and booking sidebar */}
-
         <div className="fd-main-layout">
           <div className="fd-information">
-            {/* Description */}
+            <section className="fd-section">
+              <span className="fd-section-kicker">ABOUT THIS PROPERTY</span>
+              <h2>About {farmhouse.name}</h2>
+              <p className="fd-section-subtitle">{description}</p>
+            </section>
 
-             
+            <section className="fd-section">
+              <span className="fd-section-kicker">COMFORT & FACILITIES</span>
 
-            {/* Amenities */}
+              <h2>What this place offers</h2>
 
-           <section className="fd-section">
-  <span className="fd-section-kicker">COMFORT & FACILITIES</span>
+              <p className="fd-section-subtitle">
+                Explore the facilities available at this farmhouse.
+              </p>
 
-  <h2>What this place offers</h2>
+              {amenitiesLoading ? (
+                <div className="fd-empty-note">
+                  Loading farmhouse amenities...
+                </div>
+              ) : amenitiesError ? (
+                <div className="fd-empty-note">
+                  <p>{amenitiesError}</p>
 
-  <p className="fd-section-subtitle">
-    Explore the facilities available at this farmhouse.
-  </p>
+                  <button
+                    type="button"
+                    className="fd-secondary-button"
+                    onClick={async () => {
+                      try {
+                        setAmenitiesLoading(true);
+                        setAmenitiesError("");
 
-  {amenitiesLoading ? (
-    <div className="fd-empty-note">
-      Loading farmhouse amenities...
-    </div>
-  ) : amenitiesError ? (
-    <div className="fd-empty-note">
-      <p>{amenitiesError}</p>
+                        const response = await getFarmhouseAmenities(id);
 
-      <button
-        type="button"
-        className="fd-secondary-button"
-        onClick={async () => {
-          try {
-            setAmenitiesLoading(true);
-            setAmenitiesError("");
+                        const list = Array.isArray(response)
+                          ? response
+                          : Array.isArray(response?.data)
+                            ? response.data
+                            : Array.isArray(response?.content)
+                              ? response.content
+                              : [];
 
-            const response = await getFarmhouseAmenities(id);
+                        setAmenities(
+                          list
+                            .map((item) => {
+                              const amenity = item.amenity ?? item;
 
-            const list = Array.isArray(response)
-              ? response
-              : Array.isArray(response?.data)
-                ? response.data
-                : Array.isArray(response?.content)
-                  ? response.content
-                  : [];
+                              return {
+                                id: item.id ?? amenity.id,
+                                name:
+                                  amenity.name ??
+                                  item.amenityName ??
+                                  item.name ??
+                                  "",
+                              };
+                            })
+                            .filter((item) => item.name)
+                        );
+                      } catch (error) {
+                        console.error(error);
+                        setAmenitiesError(
+                          "Unable to load amenities. Please try again."
+                        );
+                      } finally {
+                        setAmenitiesLoading(false);
+                      }
+                    }}
+                  >
+                    Try again
+                  </button>
+                </div>
+              ) : amenities.length === 0 ? (
+                <div className="fd-empty-note">
+                  No amenities have been added to this farmhouse yet.
+                </div>
+              ) : (
+                <div className="fd-amenities-grid">
+                  {amenities.map((amenity) => {
+                    const Icon = amenityIcons[amenity.name] || Check;
 
-            setAmenities(
-              list
-                .map((item) => {
-                  const amenity = item.amenity ?? item;
+                    return (
+                      <div
+                        className="fd-amenity"
+                        key={amenity.id ?? amenity.name}
+                      >
+                        <span>
+                          <Icon size={18} />
+                        </span>
 
-                  return {
-                    id: item.id ?? amenity.id,
-                    name:
-                      amenity.name ??
-                      item.amenityName ??
-                      item.name ??
-                      "",
-                  };
-                })
-                .filter((item) => item.name)
-            );
-          } catch (error) {
-            console.error(error);
-            setAmenitiesError("Unable to load amenities. Please try again.");
-          } finally {
-            setAmenitiesLoading(false);
-          }
-        }}
-      >
-        Try again
-      </button>
-    </div>
-  ) : amenities.length === 0 ? (
-    <div className="fd-empty-note">
-      No amenities have been added to this farmhouse yet.
-    </div>
-  ) : (
-    <div className="fd-amenities-grid">
-      {amenities.map((amenity) => {
-        const Icon =
-          amenityIcons[amenity.name] || Check;
-
-        return (
-          <div
-            className="fd-amenity"
-            key={amenity.id ?? amenity.name}
-          >
-            <span>
-              <Icon size={18} />
-            </span>
-
-            <strong>{amenity.name}</strong>
-          </div>
-        );
-      })}
-    </div>
-  )}
-</section>
-
-            {/* Add-on services */}
+                        <strong>{amenity.name}</strong>
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
+            </section>
 
             {addOns.length > 0 && (
               <section className="fd-section">
                 <span className="fd-section-kicker">PERSONALISE YOUR STAY</span>
                 <h2>Optional Add-ons</h2>
+
                 <p className="fd-section-subtitle">
                   Additional services available at this property.
                 </p>
@@ -543,7 +650,11 @@ const [amenitiesError, setAmenitiesError] = useState("");
                 <div className="fd-addon-list">
                   {addOns.map((addon, index) => {
                     const name =
-                      addon.name || addon.title || addon.addOnName || "Extra service";
+                      addon.name ||
+                      addon.title ||
+                      addon.addOnName ||
+                      "Extra service";
+
                     const price = addon.price ?? addon.amount;
 
                     return (
@@ -551,10 +662,12 @@ const [amenitiesError, setAmenitiesError] = useState("");
                         <span className="fd-addon-icon">
                           <Sparkles size={18} />
                         </span>
+
                         <div>
                           <strong>{name}</strong>
                           {addon.description && <p>{addon.description}</p>}
                         </div>
+
                         {price != null && (
                           <strong className="fd-addon-price">
                             {formatPrice(price)}
@@ -567,11 +680,10 @@ const [amenitiesError, setAmenitiesError] = useState("");
               </section>
             )}
 
-            {/* House rules */}
-
             <section className="fd-section">
               <span className="fd-section-kicker">A FEW THINGS TO KNOW</span>
               <h2>House Rules &amp; Guest Guidelines</h2>
+
               <p className="fd-section-subtitle">
                 Please review these details before confirming your stay.
               </p>
@@ -657,11 +769,10 @@ const [amenitiesError, setAmenitiesError] = useState("");
               </div>
             </section>
 
-            {/* Location */}
-
             <section className="fd-section">
               <span className="fd-section-kicker">EXPLORE THE AREA</span>
               <h2>Location &amp; Neighbourhood</h2>
+
               <p className="fd-section-subtitle">
                 Find the property and explore its surroundings.
               </p>
@@ -682,10 +793,12 @@ const [amenitiesError, setAmenitiesError] = useState("");
                     <span>
                       <MapPin size={20} />
                     </span>
+
                     <div>
                       <strong>{farmhouse.name}</strong>
                       <p>{locationText}</p>
                     </div>
+
                     <a
                       href={`https://www.google.com/maps/search/?api=1&query=${mapQuery}`}
                       target="_blank"
@@ -702,8 +815,6 @@ const [amenitiesError, setAmenitiesError] = useState("");
                 </div>
               )}
             </section>
-
-            {/* Reviews */}
 
             <section className="fd-section fd-reviews-section">
               <div className="fd-reviews-heading">
@@ -738,6 +849,7 @@ const [amenitiesError, setAmenitiesError] = useState("");
                             review.name ||
                             "Guest"}
                         </strong>
+
                         <span>
                           <Star size={13} fill="currentColor" />
                           {Number(review.rating || 0).toFixed(1)}
@@ -771,16 +883,16 @@ const [amenitiesError, setAmenitiesError] = useState("");
             </section>
           </div>
 
-          {/* Booking panel */}
-
           <aside className="fd-booking-card">
             <div className="fd-price-header">
               <div>
                 <span className="fd-price-label">STARTING PRICE</span>
+
                 <div className="fd-price">
                   {formatPrice(basePrice)}
                   <small> / night</small>
                 </div>
+
                 <p>Base accommodation fare</p>
               </div>
 
@@ -818,6 +930,12 @@ const [amenitiesError, setAmenitiesError] = useState("");
           </aside>
         </div>
       </div>
+
+      {structuredData && (
+        <script type="application/ld+json">
+          {JSON.stringify(structuredData)}
+        </script>
+      )}
     </main>
   );
 }
